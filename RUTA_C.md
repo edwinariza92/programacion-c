@@ -274,10 +274,10 @@ Ser capaz de crear, compilar y ejecutar programas sencillos en C, utilizando var
 
 ### Ejercicios
 
-- [ ] Contar del 1 al 10
-- [ ] Números pares
+- [x] Contar del 1 al 10
+- [x] Números pares
 - [ ] Tabla de multiplicar
-- [ ] Suma de números
+- [x] Suma de números
 - [ ] Factorial
 - [ ] Menú repetitivo
 - [ ] Validación de entrada
@@ -834,6 +834,31 @@ resultado = (float)a / b;
 - `=` → asignación
 - `==` → comparación
 
+### Actualización del `for` en el lugar equivocado
+
+Error:
+
+```c
+for (int i = 1; i <= numero; suma++) {
+    suma = suma + i;
+}
+```
+
+Aprendizaje:
+
+- `i` es el contador de vueltas → debe avanzar en la parte de actualización del `for` (`i++`).
+- `suma` es el acumulador → debe actualizarse dentro del cuerpo (`suma = suma + i`).
+- Si el contador nunca avanza, la condición nunca se vuelve falsa → **bucle infinito**.
+- No usar la variable de entrada como acumulador: se destruye el dato del usuario.
+
+Solución:
+
+```c
+for (int i = 1; i <= numero; i++) {
+    suma = suma + i;
+}
+```
+
 ### Rangos y orden de condiciones
 
 Aprendizaje:
@@ -904,7 +929,18 @@ Estado: 🟢 Fase 1 / Módulo 5.
 
 Estado: 🟢 Fase 1 / Módulo 6 completado.
 
-## Sesión 3
+## Sesión 3 — Bucles (Módulo 7)
+
+- `while`, `for`, contadores y acumuladores.
+- `contar10.c` (contar del 1 al 10 con `while`).
+- `pares.c` (números pares del 2 al 20 con `for` y `contador += 2`).
+- `suma.c` (suma del 1 hasta `n` con acumulador).
+- Bug aprendido: actualizar el acumulador en lugar del contador en el `for` → bucle infinito.
+- Error importante registrado en `# 🐛 ERRORES IMPORTANTES APRENDIDOS`.
+
+Estado: 🟢 Fase 1 / Módulo 7 en progreso (3 de 8 ejercicios completados).
+
+## Sesión 4
 
 Pendiente.
 
@@ -948,10 +984,10 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 1 — Fundamentos  
 **Módulo:** 7 — Bucles  
-**Próximo tema:** `while`, `for` y `do while`  
-**Próximo reto:** contar del 1 al 10 con un bucle
+**Próximo tema:** `do while` y `break`/`continue`  
+**Próximo reto:** tabla de multiplicar
 
-**Último concepto dominado:** `switch`.
+**Último concepto dominado:** acumuladores (y la diferencia con contadores).
 
-**Último ejercicio:** calculadora mediante `switch`.
+**Último ejercicio:** suma del 1 hasta `n` con acumulador (`suma.c`).
 
