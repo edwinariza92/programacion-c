@@ -1,0 +1,8 @@
+/*
+!*.c
+!*.md
+!*.gitignore
+!.vscode/
+!.vscode/**
+!config-opencode/
+!config-opencode/**
