@@ -771,11 +771,26 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
 
 ### Registro
 
-- [ ] Punteros — adelanto durante Fase 1
+- [x] Punteros — adelanto durante Fase 1
 - [ ] Memoria — adelanto
 - [ ] Structs — adelanto
 - [ ] Linux/sistemas — adelanto
 - [ ] Bitwise — adelanto
+- [x] **Adelanto con grupo de estudio (agosto 2026):**
+  - [ ] Arreglos
+  - [ ] `sizeof`
+  - [ ] Funciones básicas y de retorno
+  - [ ] Funciones recursivas
+  - [ ] Apuntadores — conceptos básicos
+  - [ ] Apuntadores — llamadas por referencia
+  - [ ] Estructuras
+  - [ ] Arreglos de estructuras
+  - [ ] Estructuras anidadas
+  - [ ] Asignación dinámica de memoria
+  - [ ] Liberación de memoria dinámica
+  - [ ] Listas enlazadas
+  - [ ] Listas — agregar primer elemento
+  - [ ] Listas — agregar elementos al final
 
 ---
 
@@ -990,4 +1005,6 @@ Al terminar esta ruta, el objetivo es que puedas:
 **Último concepto dominado:** acumuladores (y la diferencia con contadores).
 
 **Último ejercicio:** suma del 1 hasta `n` con acumulador (`suma.c`).
+
+**Adelanto con grupo de estudio:** arreglos, funciones, apuntadores, estructuras, memoria dinámica y listas enlazadas — ver `# 🧭 ADELANTOS`.
 
