@@ -23,7 +23,7 @@
 | 7 | Archivos | ⬜ Pendiente |
 | 8 | C avanzado y sistemas | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase 1 — ~75%
+**Progreso orientativo:** Fase 1 — ~90% (Módulo 7 casi completo, pendiente ej6 y checkpoint)
 
 ---
 
@@ -262,15 +262,15 @@ Ser capaz de crear, compilar y ejecutar programas sencillos en C, utilizando var
 
 ### Conceptos
 
-- [ ] `while`
-- [ ] `do while`
-- [ ] `for`
-- [ ] Contadores
-- [ ] Acumuladores
-- [ ] Bucles infinitos
-- [ ] `break`
-- [ ] `continue`
-- [ ] Bucles anidados
+- [x] `while`
+- [x] `do while`
+- [x] `for`
+- [x] Contadores
+- [x] Acumuladores
+- [x] Bucles infinitos
+- [x] `break`
+- [x] `continue`
+- [x] Bucles anidados
 
 ### Ejercicios
 
@@ -281,16 +281,21 @@ Ser capaz de crear, compilar y ejecutar programas sencillos en C, utilizando var
 - [ ] Factorial
 - [ ] Menú repetitivo
 - [ ] Validación de entrada
-- [ ] Bucles anidados
+- [x] Bucles anidados
+- [x] Ejercicio 2 — Contador divisibles por 3 (`ej2_contador.c`)
+- [x] Ejercicio 3 — Acumulador pares (`ej3_acumulador.c`)
+- [x] Ejercicio 4 — Break con suma (`ej4_break.c`)
+- [x] Ejercicio 5 — Continue sin divisibles por 3 (`ej5_continue.c`)
+- [ ] Ejercicio 6 — Notas con break (`ej6_integrado.c`) — pendiente
 
 ### Checkpoint
 
-- [ ] Elegir entre `for`, `while` y `do while`
-- [ ] Crear un contador
-- [ ] Crear un acumulador
-- [ ] Utilizar `break`
-- [ ] Utilizar `continue`
-- [ ] Resolver un problema usando un bucle
+- [x] Elegir entre `for`, `while` y `do while`
+- [x] Crear un contador
+- [x] Crear un acumulador
+- [x] Utilizar `break`
+- [x] Utilizar `continue`
+- [ ] Resolver un problema usando un bucle (ej6 pendiente)
 
 ---
 
@@ -777,10 +782,10 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
 - [ ] Linux/sistemas — adelanto
 - [ ] Bitwise — adelanto
 - [x] **Adelanto con grupo de estudio (agosto 2026):**
-  - [ ] Arreglos
-  - [ ] `sizeof`
-  - [ ] Funciones básicas y de retorno
-  - [ ] Funciones recursivas
+  - [x] Arreglos (`notas.c`)
+  - [x] `sizeof` (`sizeof.c`)
+  - [x] Funciones básicas y de retorno (`funciones.c`, `funciones2.c`)
+  - [x] Funciones recursivas (`recursivo.c`)
   - [ ] Apuntadores — conceptos básicos
   - [ ] Apuntadores — llamadas por referencia
   - [ ] Estructuras
@@ -955,9 +960,22 @@ Estado: 🟢 Fase 1 / Módulo 6 completado.
 
 Estado: 🟢 Fase 1 / Módulo 7 en progreso (3 de 8 ejercicios completados).
 
-## Sesión 4
+## Sesión 4 — Bucles (Módulo 7) + Adelantos
 
-Pendiente.
+- `do while` — ciclo que ejecuta primero, verifica después (`do_while.c`).
+- Bug corregido: `scanf("%c")` lee `\n` residual → solución: `" %c"`.
+- `break` — salir de un bucle (`break.c`).
+- `continue` — saltar una iteración (`continue.c`).
+- Bucles anidados (`bucles_anidados.c`).
+- Ejercicios del checkpoint: contador, acumulador, break, continue (`ej2` a `ej5`).
+- Ejercicio 6 (notas con break) — pendiente para mañana.
+- **Adelantos con grupo de estudio:**
+  - Arreglos — declaración, índices, recorrido con `for` (`notas.c`).
+  - `sizeof` — tamaño de tipos y arreglos, fórmula `sizeof(arr)/sizeof(arr[0])` (`sizeof.c`).
+  - Funciones básicas — declaración, parámetros, `return`, `void` (`funciones.c`, `funciones2.c`).
+  - Funciones recursivas — caso base, caso recursivo, suma del 1 al `n` (`recursivo.c`).
+
+Estado: 🟢 Fase 1 / Módulo 7 casi completado (conceptos ✅, ejercicios pendientes: tabla de multiplicar, factorial, menú, validación, ej6). Adelantos: 4 de 14 temas completados.
 
 ---
 
@@ -999,12 +1017,12 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 1 — Fundamentos  
 **Módulo:** 7 — Bucles  
-**Próximo tema:** `do while` y `break`/`continue`  
-**Próximo reto:** tabla de multiplicar
+**Próximo tema:** Completar ej6 (notas con break) y checkpoint del Módulo 7  
+**Próximo reto:** Tabla de multiplicar, factorial, menú repetitivo
 
-**Último concepto dominado:** acumuladores (y la diferencia con contadores).
+**Último concepto dominado:** funciones recursivas (caso base y caso recursivo).
 
-**Último ejercicio:** suma del 1 hasta `n` con acumulador (`suma.c`).
+**Último ejercicio:** `suma(n)` recursiva (`recursivo.c`).
 
-**Adelanto con grupo de estudio:** arreglos, funciones, apuntadores, estructuras, memoria dinámica y listas enlazadas — ver `# 🧭 ADELANTOS`.
+**Adelanto con grupo de estudio:** arreglos, sizeof, funciones básicas, funciones recursivas — ver `# 🧭 ADELANTOS`.
 
