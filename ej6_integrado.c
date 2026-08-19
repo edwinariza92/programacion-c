@@ -2,6 +2,8 @@
 int main()
 {
     float nota,suma = 0;
+    float promedio;
+    float contador = 0;
     for (int i = 1; i <= 5; i++)
     {
         printf("Dame la nota %d: ", i);
@@ -10,10 +12,16 @@ int main()
         {
             printf("Reprobado\n");
             break;
+        }else
+        {
+            suma += nota;
+            contador ++;
         }
-        suma += nota;
-        float promedio = suma /(i-1);
-        printf("%f", promedio);
+    }if (contador !=0)
+    {
+        promedio = suma /contador;
     }
+    
+    printf("%f", promedio);
     return 0;
 }

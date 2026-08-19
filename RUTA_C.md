@@ -23,7 +23,7 @@
 | 7 | Archivos | ⬜ Pendiente |
 | 8 | C avanzado y sistemas | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase 1 — ~90% (Módulo 7 casi completo, pendiente ej6 y checkpoint)
+**Progreso orientativo:** Fase 1 — ~95% (Módulo 7 completado, pendiente Módulo 8)
 
 ---
 
@@ -276,17 +276,17 @@ Ser capaz de crear, compilar y ejecutar programas sencillos en C, utilizando var
 
 - [x] Contar del 1 al 10
 - [x] Números pares
-- [ ] Tabla de multiplicar
+- [x] Tabla de multiplicar
 - [x] Suma de números
-- [ ] Factorial
-- [ ] Menú repetitivo
-- [ ] Validación de entrada
+- [x] Factorial
+- [x] Menú repetitivo
+- [x] Validación de entrada
 - [x] Bucles anidados
 - [x] Ejercicio 2 — Contador divisibles por 3 (`ej2_contador.c`)
 - [x] Ejercicio 3 — Acumulador pares (`ej3_acumulador.c`)
 - [x] Ejercicio 4 — Break con suma (`ej4_break.c`)
 - [x] Ejercicio 5 — Continue sin divisibles por 3 (`ej5_continue.c`)
-- [ ] Ejercicio 6 — Notas con break (`ej6_integrado.c`) — pendiente
+- [x] Ejercicio 6 — Notas con break (`ej6_integrado.c`)
 
 ### Checkpoint
 
@@ -295,7 +295,7 @@ Ser capaz de crear, compilar y ejecutar programas sencillos en C, utilizando var
 - [x] Crear un acumulador
 - [x] Utilizar `break`
 - [x] Utilizar `continue`
-- [ ] Resolver un problema usando un bucle (ej6 pendiente)
+- [x] Resolver un problema usando un bucle (ej6 pendiente)
 
 ---
 
@@ -786,12 +786,12 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
   - [x] `sizeof` (`sizeof.c`)
   - [x] Funciones básicas y de retorno (`funciones.c`, `funciones2.c`)
   - [x] Funciones recursivas (`recursivo.c`)
-  - [ ] Apuntadores — conceptos básicos
-  - [ ] Apuntadores — llamadas por referencia
-  - [ ] Estructuras
-  - [ ] Arreglos de estructuras
+  - [x] Apuntadores — conceptos básicos
+  - [x] Apuntadores — llamadas por referencia
+  - [x] Estructuras
+  - [x] Arreglos de estructuras
   - [ ] Estructuras anidadas
-  - [ ] Asignación dinámica de memoria
+  - [x] Asignación dinámica de memoria
   - [ ] Liberación de memoria dinámica
   - [ ] Listas enlazadas
   - [ ] Listas — agregar primer elemento
@@ -915,7 +915,7 @@ Estado: ✅ Realizado
 
 ## Checkpoint Fase 1 — Módulo 7
 
-Estado: ⬜ Pendiente
+Estado: ✅ Realizado
 
 ## Checkpoint Fase 1 — Final
 
@@ -977,6 +977,28 @@ Estado: 🟢 Fase 1 / Módulo 7 en progreso (3 de 8 ejercicios completados).
 
 Estado: 🟢 Fase 1 / Módulo 7 casi completado (conceptos ✅, ejercicios pendientes: tabla de multiplicar, factorial, menú, validación, ej6). Adelantos: 4 de 14 temas completados.
 
+## Sesión 5 — Módulo 7 completado + Checkpoint
+
+- Ejercicio 6 — Notas con break (`ej6_integrado.c`) completado y corregido.
+- Bugs corregidos: scope de `promedio`, inicialización de `contador`, división por cero.
+- Checkpoint del Módulo 7: reto de contar positivos/negativos con `do while` y `break` (`ej7_positivos.c`).
+- Módulo 7 completado. Pendiente: Módulo 8 (Calculadora interactiva).
+
+Estado: ✅ Fase 1 / Módulo 7 completado.
+
+## Sesión 6 — Adelanto: Punteros y Structs
+
+- Punteros básicos: direcciones de memoria, operador `&`, operador `*`, declarar punteros, dereferenciación.
+- Archivos: `punteros1.c`, `punteros2.c`, `punteros_reto.c` (intercambio de valores con punteros).
+- Structs: `typedef struct`, acceso con `.`, punteros a structs con `->`.
+- Arrays de structs: recorrido con `for`.
+- `malloc` y `free`: memoria dinámica para arreglos de structs.
+- Archivos: `structs1.c`, `structs_punteros.c`, `structs_reto.c`, `arrays_structs.c`, `malloc1.c`.
+- Documento de referencia creado: `formato_printf_scanf.md`.
+- Reto final pendiente: `reto_final.c` (structs + malloc + free + acumulador).
+
+Estado: 🧭 Adelanto — Fase 4 (punteros), Fase 6 (structs), Fase 5 (malloc) vistos superficialmente.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1016,13 +1038,13 @@ Al terminar esta ruta, el objetivo es que puedas:
 # 📌 ESTADO ACTUAL
 
 **Fase:** 1 — Fundamentos  
-**Módulo:** 7 — Bucles  
-**Próximo tema:** Completar ej6 (notas con break) y checkpoint del Módulo 7  
-**Próximo reto:** Tabla de multiplicar, factorial, menú repetitivo
+**Módulo:** 8 — Calculadora interactiva (Proyecto integrador)  
+**Próximo tema:** Completar reto final (structs + malloc) y Calculadora interactiva  
+**Próximo reto:** `reto_final.c` y `calculadora.c`
 
-**Último concepto dominado:** funciones recursivas (caso base y caso recursivo).
+**Último concepto dominado:** punteros básicos (`&`, `*`), structs con `typedef`, acceso con `.` y `->`, arrays de structs, `malloc` y `free`.
 
-**Último ejercicio:** `suma(n)` recursiva (`recursivo.c`).
+**Último ejercicio:** `malloc1.c` (inventario dinámico con malloc).
 
-**Adelanto con grupo de estudio:** arreglos, sizeof, funciones básicas, funciones recursivas — ver `# 🧭 ADELANTOS`.
+**Adelanto con grupo de estudio:** punteros, structs, arrays de structs, malloc — ver `# 🧭 ADELANTOS`.
 
