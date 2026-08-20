@@ -27,17 +27,19 @@ int main()
         printf("Producto %d - Cantidad: ", i + 1);
         scanf("%d", &inventario[i].cantidad);
     }
-    /*float total_general = 0;
+    float total_general = 0;
     for (int i = 0; i < n; i++)
     {
-        float total = precio * cantidad;
+        float total = inventario[i].precio * inventario[i].cantidad;
         total_general += total;
-    }*/
+    }
     
     printf("\n--- RESUMEN ---\n");
     for (int i = 0; i < n; i++) {
         printf("%s: $%.2f\n", inventario[i].nombre, inventario[i].precio * inventario[i].cantidad);
     }
+    printf("Total general =  %.2f", total_general);
+    
 
     // Liberar memoria
     free(inventario);

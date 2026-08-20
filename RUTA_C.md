@@ -14,16 +14,16 @@
 
 | Fase | Tema | Estado |
 |---|---|---|
-| 1 | Fundamentos de C | 🟢 En progreso |
-| 2 | Funciones y modularización | ⬜ Pendiente |
-| 3 | Arrays y cadenas | ⬜ Pendiente |
+| 1 | Fundamentos de C | ✅ Completado |
+| 2 | Funciones y modularización | ✅ Completado |
+| 3 | Arrays y cadenas | 🟢 En progreso |
 | 4 | Punteros | ⬜ Pendiente |
 | 5 | Memoria dinámica | ⬜ Pendiente |
 | 6 | Structs y estructuras de datos | ⬜ Pendiente |
 | 7 | Archivos | ⬜ Pendiente |
 | 8 | C avanzado y sistemas | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase 1 — ~95% (Módulo 7 completado, pendiente Módulo 8)
+**Progreso orientativo:** Fase 1 completada (100%) — Fase 2 completada (100%) — Fase 3 en progreso (0%)
 
 ---
 
@@ -305,31 +305,31 @@ Ser capaz de crear, compilar y ejecutar programas sencillos en C, utilizando var
 
 Debe incluir:
 
-- [ ] Menú
-- [ ] Suma
-- [ ] Resta
-- [ ] Multiplicación
-- [ ] División
-- [ ] Validación de división por cero
-- [ ] Repetición del menú
-- [ ] Opción para salir
-- [ ] Entrada de datos
-- [ ] Condiciones
-- [ ] `switch`
-- [ ] Bucles
+- [x] Menú
+- [x] Suma
+- [x] Resta
+- [x] Multiplicación
+- [x] División
+- [x] Validación de división por cero
+- [x] Repetición del menú
+- [x] Opción para salir
+- [x] Entrada de datos
+- [x] Condiciones
+- [x] `switch`
+- [x] Bucles
 
 ### Checkpoint Fase 1
 
-- [ ] Resolver un ejercicio sin asistencia
-- [ ] Explicar variables y tipos
-- [ ] Explicar operadores
-- [ ] Explicar `if/else`
-- [ ] Explicar operadores lógicos
-- [ ] Utilizar `switch`
-- [ ] Utilizar bucles
-- [ ] Completar proyecto integrador
+- [x] Resolver un ejercicio sin asistencia
+- [x] Explicar variables y tipos
+- [x] Explicar operadores
+- [x] Explicar `if/else`
+- [x] Explicar operadores lógicos
+- [x] Utilizar `switch`
+- [x] Utilizar bucles
+- [x] Completar proyecto integrador
 
-**Estado:** ⬜ Pendiente.
+**Estado:** ✅ Completado.
 
 ---
 
@@ -341,49 +341,49 @@ Aprender a dividir programas grandes en funciones reutilizables y posteriormente
 
 ## Módulo 1 — Funciones
 
-- [ ] Declaración
-- [ ] Definición
-- [ ] Llamada
-- [ ] Parámetros
-- [ ] `return`
-- [ ] Valor de retorno
-- [ ] Funciones `void`
-- [ ] Variables locales
-- [ ] Alcance/scope
+- [x] Declaración
+- [x] Definición
+- [x] Llamada
+- [x] Parámetros
+- [x] `return`
+- [x] Valor de retorno
+- [x] Funciones `void`
+- [x] Variables locales
+- [x] Alcance/scope
 
 ### Ejercicios
 
-- [ ] Función suma
-- [ ] Función promedio
-- [ ] Función mayor de dos números
-- [ ] Funciones matemáticas
-- [ ] Calculadora mediante funciones
+- [x] Función suma
+- [x] Función promedio
+- [x] Función mayor de dos números
+- [x] Funciones matemáticas
+- [x] Calculadora mediante funciones
 
 ## Módulo 2 — Prototipos y modularización
 
-- [ ] Prototipos
-- [ ] Archivos `.c`
-- [ ] Archivos `.h`
-- [ ] `#include` propio
-- [ ] Compilación de varios archivos
+- [x] Prototipos
+- [x] Archivos `.c`
+- [x] Archivos `.h`
+- [x] `#include` propio
+- [x] Compilación de varios archivos
 
 ## Proyecto
 
 ### 🧮 Calculadora modular
 
-- [ ] `main.c`
-- [ ] `operaciones.c`
-- [ ] `operaciones.h`
-- [ ] Menú
-- [ ] Funciones separadas
+- [x] `main.c`
+- [x] `operaciones.c`
+- [x] `operaciones.h`
+- [x] Menú
+- [x] Funciones separadas
 
 ## Checkpoint Fase 2
 
-- [ ] Crear funciones
-- [ ] Pasar parámetros
-- [ ] Retornar valores
-- [ ] Separar código en archivos
-- [ ] Compilar varios archivos
+- [x] Crear funciones
+- [x] Pasar parámetros
+- [x] Retornar valores
+- [x] Separar código en archivos
+- [x] Compilar varios archivos
 
 ---
 
@@ -792,10 +792,11 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
   - [x] Arreglos de estructuras
   - [ ] Estructuras anidadas
   - [x] Asignación dinámica de memoria
-  - [ ] Liberación de memoria dinámica
+  - [x] Liberación de memoria dinámica
   - [ ] Listas enlazadas
   - [ ] Listas — agregar primer elemento
   - [ ] Listas — agregar elementos al final
+  - [x] **Reto final: structs + malloc + free + acumulador** (`reto_final.c`)
 
 ---
 
@@ -919,7 +920,11 @@ Estado: ✅ Realizado
 
 ## Checkpoint Fase 1 — Final
 
-Estado: ⬜ Pendiente
+Estado: ✅ Realizado
+
+## Checkpoint Fase 2 — Funciones y modularización
+
+Estado: ✅ Realizado
 
 ---
 
@@ -999,6 +1004,47 @@ Estado: ✅ Fase 1 / Módulo 7 completado.
 
 Estado: 🧭 Adelanto — Fase 4 (punteros), Fase 6 (structs), Fase 5 (malloc) vistos superficialmente.
 
+## Sesión 7 — Reto final: structs + malloc + free
+
+- Reto final completado (`reto_final.c`).
+- Conceptos aplicados: `typedef struct`, `malloc`, `free`, acumulador, verificación de memoria.
+- Bugs corregidos: variables incorrectas en acumulador (`precio` → `inventario[i].precio`).
+- Checkpoint aprobado: comprensión de inicialización de acumuladores, manejo de `malloc` y `free`, memory leaks.
+
+Estado: ✅ Reto final completado. Pendiente: Módulo 8 — Calculadora interactiva.
+
+## Sesión 8 — Módulo 8: Calculadora interactiva (Proyecto integrador)
+
+- Calculadora interactiva completada (`calculadora_interactiva.c`).
+- Conceptos integrados: variables, operadores, `if/else`, `switch`, `do while`, `scanf`, `printf`.
+- Bugs corregidos: validación de división por cero (verificar antes de dividir), fall-through en `switch`.
+- Checkpoint Fase 1 aprobado.
+- **FASE 1 COMPLETADA** ✅
+
+Estado: ✅ Fase 1 completada. Próxima: Fase 2 — Funciones y modularización.
+
+## Sesión 9 — Fase 2: Funciones y modularización
+
+- Módulo 1 — Funciones: declaración, definición, llamada, parámetros, `return`, `void`, alcance.
+- Ejercicios: `es_par.c`, `mayor.c`, `imprimir_nombre.c`, `calcular_area.c`, `calculadora_fun.c`.
+- Concepto: paso por valor vs paso por referencia (punteros).
+- Módulo 2 — Prototipos y modularización: prototipos, archivos `.h` y `.c`, `#include` propio, compilación de varios archivos.
+- Proyecto: `matematicas/` con `matematicas.h`, `matematicas.c`, `main.c`.
+- Checkpoint Fase 2 aprobado.
+- **FASE 2 COMPLETADA** ✅
+
+Estado: ✅ Fase 2 completada. Próxima: Fase 3 — Arrays y cadenas.
+
+## Sesión 10 — Fase 3: Arrays (Módulo 1 en progreso)
+
+- Arrays: declaración, inicialización, índices, recorrido con `for`.
+- Bug aprendido: índices empiezan en 0, no en 1.
+- Bug aprendido: `i+1` no modifica `i`, usar `i++`.
+- Ejercicios: `array_promedio.c` (promedio de notas), `array_numeros.c` (mayor y menor).
+- Pendiente: `array_comparando.c` (contar positivos/negativos/ceros).
+
+Estado: 🟢 Fase 3 / Módulo 1 en progreso.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1037,14 +1083,14 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 # 📌 ESTADO ACTUAL
 
-**Fase:** 1 — Fundamentos  
-**Módulo:** 8 — Calculadora interactiva (Proyecto integrador)  
-**Próximo tema:** Completar reto final (structs + malloc) y Calculadora interactiva  
-**Próximo reto:** `reto_final.c` y `calculadora.c`
+**Fase:** 3 — Arrays y cadenas  
+**Módulo:** 1 — Arrays  
+**Próximo tema:** Declaración, índices, recorrido de arrays  
+**Próximo reto:** Promedio de notas con arrays
 
-**Último concepto dominado:** punteros básicos (`&`, `*`), structs con `typedef`, acceso con `.` y `->`, arrays de structs, `malloc` y `free`.
+**Último concepto dominado:** Funciones, prototipos, modularización con archivos `.h` y `.c`, include guards.
 
-**Último ejercicio:** `malloc1.c` (inventario dinámico con malloc).
+**Último ejercicio:** `matematicas/` (proyecto modular con funciones separadas).
 
-**Adelanto con grupo de estudio:** punteros, structs, arrays de structs, malloc — ver `# 🧭 ADELANTOS`.
+**Fases completadas:** Fase 1 ✅ — Fase 2 ✅
 
