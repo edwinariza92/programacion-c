@@ -886,6 +886,81 @@ Aprendizaje:
 
 Las condiciones de `if / else if / else` se evalúan de arriba hacia abajo. El orden puede permitir simplificar condiciones.
 
+### Condiciones sin comparación
+
+Error:
+
+```c
+for (int i = 0; tamaño - 1 ; i++)
+```
+
+Aprendizaje:
+
+- Cualquier valor distinto de cero es verdadero → `tamaño - 1` siempre es verdad → **bucle infinito**.
+- La condición de un bucle debe ser una comparación: `i < tamaño`.
+
+Solución:
+
+```c
+for (int i = 0; i < tamaño ; i++)
+```
+
+### `printf()` sin formato
+
+Error:
+
+```c
+printf(a, b);
+printf(arreglo[i]);
+```
+
+Aprendizaje:
+
+- El primer argumento de `printf()` es SIEMPRE texto entre comillas con los especificadores.
+- Los valores van después, separados por comas.
+
+Solución:
+
+```c
+printf("%d %d", a, b);
+printf("%d ", arreglo[i]);
+```
+
+### Pasar valores donde se esperan punteros
+
+Error:
+
+```c
+void swap(int *a, int *b) { ... }
+swap(5, 3);      // números sueltos, sin dirección
+swap(a, b);      // faltan las direcciones
+```
+
+Aprendizaje:
+
+- Una función que recibe `int *` espera **direcciones de memoria**, no valores.
+- Para obtener la dirección de una variable: operador `&` (el mismo de `scanf`).
+
+Solución:
+
+```c
+swap(&a, &b);
+```
+
+### Números fijos vs parámetros
+
+Error:
+
+```c
+void printArray(int arreglo[], int tamaño) {
+    for (int i = 0; i < 5; i++)   // 5 escrito a mano
+}
+```
+
+Aprendizaje:
+
+Si el arreglo crece, la función seguirá imprimiendo solo 5 elementos. Usar el parámetro que la función ya recibe: `i < tamaño`.
+
 ---
 
 # 📝 CHECKPOINTS REALIZADOS
@@ -1045,6 +1120,20 @@ Estado: ✅ Fase 2 completada. Próxima: Fase 3 — Arrays y cadenas.
 
 Estado: 🟢 Fase 3 / Módulo 1 en progreso.
 
+## Sesión 11 — Homework Etapa 1: tarea 1 completada + inicio tarea 2
+
+- Revisión y cierre de `array_comparando.c` — contadores iniciados en 0 ✅
+- Análisis del documento `Etapa 1 - Homework.docx` (2 retos).
+- **Tarea 1 completada** (`tarea1.c`): funciones `swap`, `printArray`, `reverseArray` + `malloc`/`realloc`/`free`. Salida idéntica a la esperada 🏆
+- Concepto nuevo dominado: `realloc` con puntero temporal para no perder la referencia.
+- Algoritmos nuevos: inversión con fórmula `i ↔ tamaño-1-i`, desplazamiento (shift) hacia atrás/adelante.
+- `#define MAX_SIZE` y distinción capacidad (`MAX_SIZE`) vs tamaño (`listSize`).
+- Bugs aprendidos: primer argumento de `printf` siempre es formato entre comillas (3 apariciones), condiciones de bucle deben ser comparaciones, números fijos vs parámetros, `&` al llamar funciones que reciben punteros.
+- Diagnóstico de refuerzo para examen registrado en perfil del estudiante (traza mental + checklist personal + simulacro).
+- Tarea 2 iniciada: `initArrayList` en progreso (concepto de lista vacía = contador en 0).
+
+Estado: 🟢 Fase 3 / Módulo 1 — homework Etapa 1 en progreso (continuar desde casa).
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1085,12 +1174,12 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 3 — Arrays y cadenas  
 **Módulo:** 1 — Arrays  
-**Próximo tema:** Declaración, índices, recorrido de arrays  
-**Próximo reto:** Promedio de notas con arrays
+**Próximo tema:** Tarea 2 del homework — funciones `initArrayList`, `insertAtEnd` y luego las de desplazamiento (`insertAtBeginning`, `deleteAtIndex`, `insertAfterIndex`)  
+**Próximo reto:** Completar `initArrayList` (una línea: contador en 0) e implementar `insertAtEnd` (validar llena → insertar → incrementar `*listSize`)
 
-**Último concepto dominado:** Funciones, prototipos, modularización con archivos `.h` y `.c`, include guards.
+**Último concepto dominado:** `realloc`, inversión de arreglos con dos índices, desplazamiento de elementos (shift), capacidad vs tamaño.
 
-**Último ejercicio:** `matematicas/` (proyecto modular con funciones separadas).
+**Último ejercicio:** `tarea1.c` — completada ✅ (swap + reverseArray + printArray con memoria dinámica).
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅
 
