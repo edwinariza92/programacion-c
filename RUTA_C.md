@@ -804,9 +804,9 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
 
 Registrar aquí conceptos que necesiten reforzarse.
 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Desplazamiento de arreglos hacia la derecha (bucle hacia atrás)
+- [ ] Roles de parámetros en funciones con punteros (arreglo / contador / dato / índice)
+- [ ] Método de 5 pasos para resolver ejercicios sin ayuda (examen: 4 de septiembre)
 
 ---
 
@@ -960,6 +960,60 @@ void printArray(int arreglo[], int tamaño) {
 Aprendizaje:
 
 Si el arreglo crece, la función seguirá imprimiendo solo 5 elementos. Usar el parámetro que la función ya recibe: `i < tamaño`.
+
+### Función que promete devolver valor pero no tiene `return`
+
+Error:
+
+```c
+int findLength(int* listSize) {
+   // sin return
+}
+```
+
+Aprendizaje:
+
+- Una función que declara devolver `int` SIEMPRE debe terminar con `return`.
+- Sin él, el programa entrega basura de memoria (se vio un número largo negativo en pantalla).
+- C solo lanza warning, no error → compila pero el comportamiento es indefinido.
+
+Solución:
+
+```c
+return *listSize;
+```
+
+### Roles intercambiados entre parámetros
+
+Error:
+
+```c
+void insertAtEnd(int* listArray, int* listSize, int data) {
+   listSize[data];                  // contador usado como arreglo, dato como índice
+}
+// y en insertAtBeginning:
+listArray[i] = listArray[data];    // el dato usado como índice otra vez
+```
+
+Aprendizaje:
+
+Cada parámetro tiene UN solo papel: `listArray` = arreglo, `listSize` = contador (con `*`), `data` = valor nuevo.
+
+Frase guía: *"En el arreglo ___, en la casilla ___, guarda ___."*
+
+### Bucle con condición imposible desde el inicio
+
+Error:
+
+```c
+for (int i = 0; i > 0; i--)
+```
+
+Aprendizaje:
+
+- `0 > 0` es falso en la primera evaluación → el cuerpo nunca se ejecuta.
+- Antes de compilar, evaluar mentalmente la primera vuelta del bucle.
+- El código debe reflejar la traza del papel: si el plan dice "empezar por la derecha", `i` debe iniciar en el extremo derecho (`*listSize`).
 
 ---
 
@@ -1134,6 +1188,20 @@ Estado: 🟢 Fase 3 / Módulo 1 en progreso.
 
 Estado: 🟢 Fase 3 / Módulo 1 — homework Etapa 1 en progreso (continuar desde casa).
 
+## Sesión 12 — Tarea 2: lista como ADT (arrays + punteros)
+
+- `initArrayList` ✅ — escritura vía puntero (`*listSize = 0`).
+- `findLength` ✅ — lectura vía puntero y `return`.
+- `insertAtEnd` ✅ — concepto clave dominado: el índice del nuevo elemento al final = `*listSize`.
+- `printArrayList` ✅ funcional (formato menor por pulir).
+- Conceptos trabajados: error vs warning (`gcc -Wall`), función sin `return` devuelve basura, traza mental antes de ejecutar.
+- Bug corregido: Copilot autocompletó `printArrayList` con flecha duplicada — reescrito a mano y Copilot desactivado.
+- `insertAtBeginning` 🔶 al 90%: bucle hacia atrás correcto (`i = *listSize; i > 0; i--`), falta el cuerpo (`i - 1`) y el cierre (dato en índice 0 + incrementar contador).
+- Pendientes: terminar tarea 2 (`insertAfterIndex`, `deleteAtIndex`), drills de refuerzo, simulacros para examen final.
+- VS Code: pendiente instalar extensión WSL para análisis de errores con GCC desde Linux.
+
+Estado: 🟢 Fase 3 / Módulo 1 — tarea 2 en progreso (4/7 funciones). Preparación examen final: 4 de septiembre.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1174,12 +1242,14 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 3 — Arrays y cadenas  
 **Módulo:** 1 — Arrays  
-**Próximo tema:** Tarea 2 del homework — funciones `initArrayList`, `insertAtEnd` y luego las de desplazamiento (`insertAtBeginning`, `deleteAtIndex`, `insertAfterIndex`)  
-**Próximo reto:** Completar `initArrayList` (una línea: contador en 0) e implementar `insertAtEnd` (validar llena → insertar → incrementar `*listSize`)
+**Próximo tema:** Terminar tarea 2 — corregir el cuerpo de `insertAtBeginning` (copiar desde `i - 1`, colocar dato en índice 0, incrementar contador) e implementar `insertAfterIndex` y `deleteAtIndex`  
+**Próximo reto:** Drill de rotación de arreglos (desplazar una posición a la derecha sin insertar nada)
 
-**Último concepto dominado:** `realloc`, inversión de arreglos con dos índices, desplazamiento de elementos (shift), capacidad vs tamaño.
+**Último concepto dominado:** Escritura/lectura vía punteros, índice del nuevo elemento al final = `*listSize`, bucle hacia atrás para desplazar, error vs warning, memoria sin inicializar = basura.
 
-**Último ejercicio:** `tarea1.c` — completada ✅ (swap + reverseArray + printArray con memoria dinámica).
+**Último ejercicio:** `tarea2.c` — en progreso (4/7 funciones completadas).
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅
+
+**Examen final:** 4 de septiembre — ejercicio tipo tarea 2, sin ayuda. Preparación: método de 5 pasos (leer main → tabla de roles → traza en papel → traducir a código → compilar y comparar) + simulacros semanales reconstruyendo `tarea2.c` desde cero.
 

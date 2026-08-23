@@ -3,31 +3,39 @@
 #define MAX_SIZE 100
 
 void initArrayList(int* listArray, int* listSize) {
-   
+   *listSize = 0;
 }
 
 void insertAtBeginning(int* listArray, int* listSize, int data) {
- //code goes here
+  for (int i = *listSize; i > 0; i--)
+  {
+   listArray[i]=listArray[data];
+  }
+  
 }
-
 void insertAtEnd(int* listArray, int* listSize, int data) {
- //code goes here
+   listArray[*listSize] = data;
+   (*listSize)++;
 }
 
 void insertAfterIndex(int* listArray, int* listSize, int data, int index) {
- //code goes here
+   //code goes here
 }
 
 void deleteAtIndex(int* listArray, int* listSize, int index) {
- //code goes here
+   //code goes here
 }
 
 int findLength(int* listSize) {
- //code goes here
+   return *listSize;
+   
 }
 
 void printArrayList(int* listArray, int* listSize) {
- //code goes here
+   for (int i = 0; i < *listSize; i++) {
+      printf(" %d ->", listArray[i]);
+   }
+   printf("\n");
 }
 
 int main() {
