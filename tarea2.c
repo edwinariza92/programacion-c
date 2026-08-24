@@ -9,9 +9,10 @@ void initArrayList(int* listArray, int* listSize) {
 void insertAtBeginning(int* listArray, int* listSize, int data) {
   for (int i = *listSize; i > 0; i--)
   {
-   listArray[i]=listArray[data];
+    listArray[i] = listArray[i - 1];
   }
-  
+  listArray[0] = data;
+  (*listSize)++;
 }
 void insertAtEnd(int* listArray, int* listSize, int data) {
    listArray[*listSize] = data;
@@ -19,11 +20,22 @@ void insertAtEnd(int* listArray, int* listSize, int data) {
 }
 
 void insertAfterIndex(int* listArray, int* listSize, int data, int index) {
-   //code goes here
+   for (int i = *listSize; i > index ; i--)
+   {
+      listArray[i +1] = listArray[i];
+   }
+   listArray[index +1 ] = data;
+   (*listSize)++;
+   
 }
 
 void deleteAtIndex(int* listArray, int* listSize, int index) {
-   //code goes here
+   for (int i = index +1; i < *listSize; i++)
+   {
+      listArray[i-1]=listArray[i];
+   }
+   (*listSize)--;
+   
 }
 
 int findLength(int* listSize) {

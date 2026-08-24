@@ -1015,6 +1015,22 @@ Aprendizaje:
 - Antes de compilar, evaluar mentalmente la primera vuelta del bucle.
 - El código debe reflejar la traza del papel: si el plan dice "empezar por la derecha", `i` debe iniciar en el extremo derecho (`*listSize`).
 
+### Confundir `i` con `arr[i]`
+
+Error:
+
+```c
+int arr[] = {50, 60, 70};
+int i = 1;
+// Pregunta: ¿cuánto vale i? → respuesta errónea: "60"
+```
+
+Aprendizaje:
+
+- `i` es la **etiqueta de la casilla** → su valor sale de la declaración (`int i = 1;`), nunca del arreglo.
+- `arr[i]` es el **contenido** de la casilla → se mira en la tabla del arreglo.
+- `a = b` lee lo de la derecha y sobrescribe UNA sola casilla a la izquierda — una asignación no desplaza ni crea casillas.
+
 ---
 
 # 📝 CHECKPOINTS REALIZADOS
@@ -1202,6 +1218,29 @@ Estado: 🟢 Fase 3 / Módulo 1 — homework Etapa 1 en progreso (continuar desd
 
 Estado: 🟢 Fase 3 / Módulo 1 — tarea 2 en progreso (4/7 funciones). Preparación examen final: 4 de septiembre.
 
+## Sesión 13 — Traza mecánica: índice vs valor
+
+- `insertAtBeginning` completada y verificada (con Copilot; comprensión reforzada después con drills).
+- Confusión detectada y corregida: `i` vs `arr[i]`, dirección del `=`, una asignación sobrescribe UNA casilla.
+- Plantilla de sustitución mecánica de 5 pasos dominada (último drill perfecto).
+- Lección: "Length: 4" correcto por casualidad — funciones vacías pueden hacer pasar tests.
+- Pendiente: programar `insertAfterIndex` sin Copilot, `deleteAtIndex`, pregunta puente línea 12.
+
+Estado: 🟢 Fase 3 / Módulo 1 — tarea 2 en progreso (5/7 funciones).
+
+## Sesión 14 — Tarea 2 completada: `insertAfterIndex` y `deleteAtIndex`
+
+- `insertAfterIndex` completada tras 2 rondas de corrección.
+- Bugs aprendidos: destino fijo que no viaja con `i` (`listArray[index+1] = listArray[i]`), condición del bucle sin el parámetro (`i > 0`, luego `i > 1`) y dato con número fijo (`listArray[3]`).
+- Lección clave: **probar con un segundo índice** para verificar que funciona por la razón correcta, no por coincidencia (el test original engañaba: el 25 aparecía y Length daba 5).
+- `deleteAtIndex` completada: bucle hacia adelante, corrimiento a la izquierda, `(*listSize)--`.
+- Bug corregido: `listArray[i - index]` funcionaba solo con `index=1` → forma general `listArray[i-1]`.
+- Concepto dominado: `index` decide **dónde empieza** el corrimiento; la aritmética interna siempre avanza de uno en uno.
+- **TAREA 2 COMPLETADA** ✅ — 7/7 funciones verificadas con índices 0, 1 y 2.
+- Creada guía imprimible para el examen: `guia_examen.md`.
+
+Estado: ✅ Tarea 2 completada. Próximo: ejercicios Fase 3 Módulo 1 (buscar, contar, ordenar) + simulacros semanales para el examen del 4 de septiembre.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1242,12 +1281,12 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 3 — Arrays y cadenas  
 **Módulo:** 1 — Arrays  
-**Próximo tema:** Terminar tarea 2 — corregir el cuerpo de `insertAtBeginning` (copiar desde `i - 1`, colocar dato en índice 0, incrementar contador) e implementar `insertAfterIndex` y `deleteAtIndex`  
-**Próximo reto:** Drill de rotación de arreglos (desplazar una posición a la derecha sin insertar nada)
+**Próximo tema:** Ejercicios restantes de Módulo 1 — buscar elemento, contar elementos, ordenamiento básico + simulacro semanal (reconstruir `insertAtBeginning` desde cero)  
+**Próximo reto:** Reescribir una función de insertar/borrar sin ayuda, y probarla con 2 índices distintos antes de darla por buena
 
-**Último concepto dominado:** Escritura/lectura vía punteros, índice del nuevo elemento al final = `*listSize`, bucle hacia atrás para desplazar, error vs warning, memoria sin inicializar = basura.
+**Último concepto dominado:** Corrimientos: insertar mueve a la derecha (bucle hacia atrás), eliminar mueve a la izquierda (bucle hacia adelante); el destino SIEMPRE viaja con `i`; `index` decide dónde empieza el corrimiento, no cuánto se corre.
 
-**Último ejercicio:** `tarea2.c` — en progreso (4/7 funciones completadas).
+**Último ejercicio:** `tarea2.c` completada — 7/7 funciones verificadas con varios índices.
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅
 
