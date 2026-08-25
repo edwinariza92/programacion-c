@@ -807,6 +807,12 @@ Registrar aquí conceptos que necesiten reforzarse.
 - [ ] Desplazamiento de arreglos hacia la derecha (bucle hacia atrás)
 - [ ] Roles de parámetros en funciones con punteros (arreglo / contador / dato / índice)
 - [ ] Método de 5 pasos para resolver ejercicios sin ayuda (examen: 4 de septiembre)
+- [ ] Recorrer strings con `for` hasta `'\0'`
+- [ ] Diferencia entre índice (`i`) y contenido (`sen[i]`, `arr[i]`)
+- [ ] `isalnum()` de `<ctype.h>` — verificar si un carácter es alfanumérico
+- [ ] `printf("%.*s", cantidad, puntero)` — imprimir subcadena
+- [ ] Aritmética de punteros: `sen + posición` para desplazar un puntero
+- [ ] Cerrar la última palabra después del `for` (el `'\0'` también es separador)
 
 ---
 
@@ -1031,6 +1037,62 @@ Aprendizaje:
 - `arr[i]` es el **contenido** de la casilla → se mira en la tabla del arreglo.
 - `a = b` lee lo de la derecha y sobrescribe UNA sola casilla a la izquierda — una asignación no desplaza ni crea casillas.
 
+### `isalnum(i)` en vez de `isalnum(sen[i])`
+
+Error:
+
+```c
+if (isalnum(i))    // pasando el ÍNDICE, no el carácter
+```
+
+Aprendizaje:
+
+- `isalnum()` recibe un **carácter**, no un índice.
+- `i` es la posición (0, 1, 2...), `sen[i]` es el carácter en esa posición ('f', 'u', 'n'...).
+- Siempre preguntar: *"¿qué le estoy pasando a la función?"*
+
+### Inicializar `for` con contenido en vez de índice
+
+Error:
+
+```c
+for (int i = *arr; i < size - 1; i++)  // *arr = 10 (contenido), no 0 (índice)
+for (int i = sen; i < contador; i++)   // sen es puntero, no índice
+```
+
+Aprendizaje:
+
+- `i` en un `for` es un **índice** → siempre empieza en 0 (o en un valor calculado).
+- Nunca confundir el **contenido** (`*arr`, `arr[0]`) con el **índice** (`i = 0`).
+- Antes de escribir el `for`, preguntar: *"¿desde dónde recorro? ¿hasta dónde?"*
+
+### Comparación suelta sin `if`
+
+Error:
+
+```c
+longitudActual > longitudMaxima;  // C evalúa y descarta — no hace nada
+```
+
+Aprendizaje:
+
+- Una comparación sin `if` es **código muerto** — C la evalúa pero no la usa para nada.
+- Si querés que algo pase cuando la comparación es verdadera, envolverla en `if`.
+
+### `printf` sin formato específico para subcadenas
+
+Error:
+
+```c
+printf("%s", sen);  // imprime TODO el string
+```
+
+Aprendizaje:
+
+- `%s` imprime desde la posición hasta `'\0'`.
+- Para imprimir **solo N caracteres desde una posición**: `printf("%.*s", cantidad, puntero_inicio)`.
+- `sen + inicio` es **aritmética de punteros** — mueve el puntero `inicio` posiciones adelante.
+
 ---
 
 # 📝 CHECKPOINTS REALIZADOS
@@ -1241,6 +1303,29 @@ Estado: 🟢 Fase 3 / Módulo 1 — tarea 2 en progreso (5/7 funciones).
 
 Estado: ✅ Tarea 2 completada. Próximo: ejercicios Fase 3 Módulo 1 (buscar, contar, ordenar) + simulacros semanales para el examen del 4 de septiembre.
 
+## Sesión 15 — Ejercicios de refuerzo: for + arrays + strings
+
+- Autoevaluación de debilidades: bucles `for` y arreglos.
+- Revisión del bug en `insertAfterIndex` de `tarea2.c` (acceso fuera de rango en `listArray[i+1]` cuando `i = *listSize`). Corregido a `i = *listSize - 1`.
+- **Ejercicio 1** — Contar pares e impares (`ej1_parimpar.c`): módulo `%`, contadores, punteros. Completado sin ayuda ✅
+- **Ejercicio 2** — Buscar elemento (`ej2_buscar.c`): `for` con `return` al encontrar. Concepto: `break` después de `return` es código muerto. Completado ✅
+- **Reto CoderBite** — Longest Word (`coderbite_challege.c`):
+  - Método de 5 pasos aplicado: traza en papel, tabla de roles, traducción a código.
+  - Bugs corregidos: `isalnum(i)` → `isalnum(sen[i])`, `i = sen` (puntero) → `i = 0`, comparación suelta sin `if`.
+  - Concepto dominado: `'\0'` como终止ador de string, recorrer strings con `for`.
+  - Bug de última palabra: el `for` termina sin comparar la última → `if` después del `for`.
+  - `printf("%.*s", longitudMaxima, sen + inicioMaxima)` — imprimir subcadena con cantidad y posición variable.
+  - Concepto: `sen + inicioMaxima` es aritmética de punteros (puntero + desplazamiento).
+- **Ejercicio 3** — Rotar izquierda (`ej3_rotacion.c`):
+  - Corrimiento hacia la izquierda con variable temporal.
+  - Bugs corregidos: `i = *arr` (contenido) → `i = 0` (índice), `temp` dentro del `for` → antes del `for`, cuerpo con líneas de más, `arr[6]` fuera de rango.
+  - Concepto: la fórmula `arr[i] = arr[i+1]` porque el destino viaja con `i` y la fuente es siempre `i+1`.
+  - Condición `i < size - 1` para no leer `arr[size]` (fuera de rango).
+- Pendientes: ejercicios 4 (intercambiar posiciones) y 5 (insertar en posición).
+- Carpeta `ejercicios_coderbyte/` creada con 7 retos de la plataforma. Plan de estudio: `primera_reversa`, `primer_factorial`, `emparejador_llaves`, `ValidacionNombre`.
+
+Estado: 🟢 Fase 3 / Módulo 1 — ejercicios de refuerzo en progreso (3/5 completados + reto CoderBite).
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1281,14 +1366,14 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 3 — Arrays y cadenas  
 **Módulo:** 1 — Arrays  
-**Próximo tema:** Ejercicios restantes de Módulo 1 — buscar elemento, contar elementos, ordenamiento básico + simulacro semanal (reconstruir `insertAtBeginning` desde cero)  
-**Próximo reto:** Reescribir una función de insertar/borrar sin ayuda, y probarla con 2 índices distintos antes de darla por buena
+**Próximo tema:** Ejercicios restantes de refuerzo — intercambiar posiciones (ej4), insertar en posición (ej5) + ejercicios CoderBite (`primera_reversa`, `primer_factorial`, `emparejador_llaves`, `ValidacionNombre`)  
+**Próximo reto:** Completar ej4 y ej5, luego avanzar con ejercicios CoderBite
 
-**Último concepto dominado:** Corrimientos: insertar mueve a la derecha (bucle hacia atrás), eliminar mueve a la izquierda (bucle hacia adelante); el destino SIEMPRE viaja con `i`; `index` decide dónde empieza el corrimiento, no cuánto se corre.
+**Último concepto dominado:** Recorrer strings con `for` hasta `'\0'`, `isalnum()` para clasificar caracteres, `%.*s` para imprimir subcadenas, aritmética de punteros (`sen + posición`).
 
-**Último ejercicio:** `tarea2.c` completada — 7/7 funciones verificadas con varios índices.
+**Último ejercicio:** `coderbite_challege.c` — Longest Word resuelto con método de 5 pasos.
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅
 
-**Examen final:** 4 de septiembre — ejercicio tipo tarea 2, sin ayuda. Preparación: método de 5 pasos (leer main → tabla de roles → traza en papel → traducir a código → compilar y comparar) + simulacros semanales reconstruyendo `tarea2.c` desde cero.
+**Examen final:** 4 de septiembre —有可能 tipo tarea2 o estilo CoderBite. Preparación: método de 5 pasos + ejercicios de refuerzo + simulacros semanales.
 

@@ -20,7 +20,7 @@ void insertAtEnd(int* listArray, int* listSize, int data) {
 }
 
 void insertAfterIndex(int* listArray, int* listSize, int data, int index) {
-   for (int i = *listSize; i > index ; i--)
+   for (int i = *listSize -1; i > index ; i--)
    {
       listArray[i +1] = listArray[i];
    }
