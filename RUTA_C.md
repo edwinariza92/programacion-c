@@ -16,14 +16,14 @@
 |---|---|---|
 | 1 | Fundamentos de C | ✅ Completado |
 | 2 | Funciones y modularización | ✅ Completado |
-| 3 | Arrays y cadenas | 🟢 En progreso |
-| 4 | Punteros | ⬜ Pendiente |
+| 3 | Arrays y cadenas | ✅ Completado |
+| 4 | Punteros | 🟢 En progreso |
 | 5 | Memoria dinámica | ⬜ Pendiente |
 | 6 | Structs y estructuras de datos | ⬜ Pendiente |
 | 7 | Archivos | ⬜ Pendiente |
 | 8 | C avanzado y sistemas | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase 1 completada (100%) — Fase 2 completada (100%) — Fase 3 en progreso (0%)
+**Progreso orientativo:** Fase 1 completada (100%) — Fase 2 completada (100%) — Fase 3 completada (100%)
 
 ---
 
@@ -395,50 +395,55 @@ Trabajar con colecciones de datos y texto.
 
 ## Módulo 1 — Arrays
 
-- [ ] Declaración
-- [ ] Índices
-- [ ] Recorrido
-- [ ] Modificación
-- [ ] Arrays de `int`
+- [x] Declaración
+- [x] Índices
+- [x] Recorrido
+- [x] Modificación
+- [x] Arrays de `int`
 - [ ] Arrays de `float`
 - [ ] Arrays multidimensionales
 
 ### Ejercicios
 
-- [ ] Promedio de notas
-- [ ] Mayor y menor
-- [ ] Buscar elemento
-- [ ] Contar elementos
-- [ ] Ordenamiento básico
+- [x] Promedio de notas
+- [x] Mayor y menor
+- [x] Buscar elemento
+- [x] Contar elementos
+- [x] Insertar en posición
+- [x] Ordenamiento básico
 
 ## Módulo 2 — Strings
 
-- [ ] Strings como arrays de `char`
-- [ ] `\0`
-- [ ] `strlen`
-- [ ] `strcpy`
-- [ ] `strcmp`
-- [ ] `strcat`
-- [ ] Entrada de texto
+- [x] Strings como arrays de `char`
+- [x] `\0`
+- [x] `strlen`
+- [x] `strcpy`
+- [x] `strcmp`
+- [x] `strcat`
+- [x] Entrada de texto
+
+### Ejercicios
+
+- [x] Reto strings (`reto_strings.c`)
 
 ## Proyecto
 
 ### 📒 Agenda de contactos
 
-- [ ] Nombre
-- [ ] Teléfono
-- [ ] Búsqueda
-- [ ] Listado
-- [ ] Edición
-- [ ] Eliminación
+- [x] Nombre
+- [x] Teléfono
+- [x] Búsqueda
+- [x] Listado
+- [x] Edición
+- [x] Eliminación
 
 ## Checkpoint Fase 3
 
-- [ ] Recorrer arrays
-- [ ] Manipular strings
-- [ ] Buscar información
-- [ ] Ordenar datos
-- [ ] Crear un programa con arrays
+- [x] Recorrer arrays
+- [x] Manipular strings
+- [x] Buscar información
+- [x] Ordenar datos
+- [x] Crear un programa con arrays
 
 ---
 
@@ -790,13 +795,20 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
   - [x] Apuntadores — llamadas por referencia
   - [x] Estructuras
   - [x] Arreglos de estructuras
-  - [ ] Estructuras anidadas
+  - [x] Estructuras anidadas
   - [x] Asignación dinámica de memoria
   - [x] Liberación de memoria dinámica
   - [ ] Listas enlazadas
   - [ ] Listas — agregar primer elemento
   - [ ] Listas — agregar elementos al final
   - [x] **Reto final: structs + malloc + free + acumulador** (`reto_final.c`)
+  - [x] **Ejercicios Fase 3 Módulo 1:**
+    - [x] Promedio de notas (`array_promedio.c`)
+    - [x] Mayor y menor (`array_numeros.c`)
+    - [x] Buscar elemento (`ej2_buscar.c`)
+    - [x] Contar elementos (`ej1_parimpar.c`)
+    - [x] Intercambiar posiciones (`ej4_intercambiarposiciones.c`)
+    - [x] Insertar en posición (`ej5_desplazaderecha.c`)
 
 ---
 
@@ -1133,6 +1145,10 @@ Estado: ✅ Realizado
 
 Estado: ✅ Realizado
 
+## Checkpoint Fase 3 — Módulo 1: Arrays
+
+Estado: ✅ Realizado
+
 ---
 
 # 📈 REGISTRO DE SESIONES
@@ -1326,6 +1342,55 @@ Estado: ✅ Tarea 2 completada. Próximo: ejercicios Fase 3 Módulo 1 (buscar, c
 
 Estado: 🟢 Fase 3 / Módulo 1 — ejercicios de refuerzo en progreso (3/5 completados + reto CoderBite).
 
+## Sesión 16 — Ejercicio 4: Intercambiar posiciones
+
+- Ejercicio 4 completado (`ej4_intercambiarposiciones.c`).
+- Conceptos aplicados: intercambio con variable temporal, impresión de arrays con formato `[]`, paso de arrays por dirección (punteros).
+- Bug corregido: impresión de comas — lógica de primer elemento vs resto.
+- Checkpoint parcial: comprensión de por qué `arr` no necesita `&` al pasarse a funciones (ya es un puntero/dirección).
+- **Ejercicios del Módulo 1 completados:** 4 de 5 (falta ordenamiento básico).
+
+## Sesión 16 — Ejercicio 5: Insertar en posición
+
+- Ejercicio 5 completado (`ej5_desplazaderecha.c`).
+- Conceptos aplicados: desplazamiento hacia la derecha con bucle inverso, inserción en posición específica.
+- Bugs corregidos:
+  - `arr[i] = arr[i]` → `arr[i+1] = arr[i]` (copiar al destino correcto)
+  - `(size)++` en la función → `(size)++` en `main` (pasado por valor, no por referencia)
+  - `i > posicion` → `i >= posicion` (incluir la posición de inserción en el corrimiento)
+- Lección clave: **ir de atrás hacia adelante para no sobrescribir datos antes de copiarlos**.
+
+## Sesión 16 — Ejercicio 6: Ordenamiento básico (Bubble Sort)
+
+- Ejercicio completado (`ordenamiento_basico.c`).
+- Conceptos aplicados: bubble sort con dos bucles anidados, función `swap` con punteros.
+- Bugs corregidos:
+  - Ambos bucles usaban `i` → bucle interno cambió a `j` (shadowing)
+  - `i <= size` → `j < size - 1 - i` (acceso fuera de rango + optimización)
+  - `printArray` también tenía `i <= size` → corregido a `i < size`
+- Lección clave: el bucle interno no revisa los últimos `i` elementos porque ya están ordenados.
+- **Ejercicios del Módulo 1 completados: 6 de 6 ✅**
+
+## Sesión 16 — Módulo 2: Strings
+
+- Conceptos: strings como arrays de `char`, `\0`, `strlen`, `strcpy`, `strcmp`, `strcat`.
+- Reto completado (`reto_strings.c`): nombre + ciudad, longitudes, comparación, copia.
+- Bugs corregidos:
+  - `\0` sin comillas → `'\0'`
+  - `strcat` sin inicializar → primero `strcpy`, luego `strcat`
+  - `strcmp` invertido → `0` significa iguales
+- **Checkpoint Fase 3 completado ✅**
+
+## Sesión 16 — Proyecto: Agenda de contactos
+
+- Proyecto completado (`agenda_de_contactos.c`).
+- Funciones implementadas: agregar, listar, buscar, editar, eliminar.
+- Conceptos aplicados: arrays paralelos, strings, `strcmp`, `strcpy`, `strlen`, punteros (`int* total`).
+- Lección clave: `(*total)++` para modificar el valor vs `*total++` que modifica el puntero.
+- **FASE 3 COMPLETADA ✅**
+
+Estado: ✅ Fase 3 completada. Próxima: Fase 4 — Punteros.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1364,16 +1429,16 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 # 📌 ESTADO ACTUAL
 
-**Fase:** 3 — Arrays y cadenas  
-**Módulo:** 1 — Arrays  
-**Próximo tema:** Ejercicios restantes de refuerzo — intercambiar posiciones (ej4), insertar en posición (ej5) + ejercicios CoderBite (`primera_reversa`, `primer_factorial`, `emparejador_llaves`, `ValidacionNombre`)  
-**Próximo reto:** Completar ej4 y ej5, luego avanzar con ejercicios CoderBite
+**Fase:** 4 — Punteros  
+**Módulo:** 1 — Conceptos básicos  
+**Próximo tema:** Direcciones de memoria, operador `&`, operador `*`, declaración de punteros  
+**Próximo reto:** Entender direcciones y trabajar con punteros
 
-**Último concepto dominado:** Recorrer strings con `for` hasta `'\0'`, `isalnum()` para clasificar caracteres, `%.*s` para imprimir subcadenas, aritmética de punteros (`sen + posición`).
+**Último concepto dominado:** Agenda de contactos con arrays paralelos, strings, punteros para modificar `total`.
 
-**Último ejercicio:** `coderbite_challege.c` — Longest Word resuelto con método de 5 pasos.
+**Último ejercicio:** `agenda_de_contactos.c` — Proyecto integrador de Fase 3.
 
-**Fases completadas:** Fase 1 ✅ — Fase 2 ✅
+**Fases completadas:** Fase 1 ✅ — Fase 2 ✅ — Fase 3 ✅
 
-**Examen final:** 4 de septiembre —有可能 tipo tarea2 o estilo CoderBite. Preparación: método de 5 pasos + ejercicios de refuerzo + simulacros semanales.
+**Examen final:** 4 de septiembre — posible tipo tarea2 o estilo CoderBite. Preparación: método de 5 pasos + ejercicios de refuerzo + simulacros semanales.
 
