@@ -455,14 +455,14 @@ Comprender direcciones de memoria y trabajar directamente con referencias a dato
 
 ## Módulo 1 — Conceptos básicos
 
-- [ ] Dirección de memoria
-- [ ] Operador `&`
-- [ ] Operador `*`
-- [ ] Declaración de punteros
-- [ ] Dereferenciación
-- [ ] Punteros e `int`
-- [ ] Punteros y `float`
-- [ ] `scanf()` explicado mediante punteros
+- [x] Dirección de memoria
+- [x] Operador `&`
+- [x] Operador `*`
+- [x] Declaración de punteros
+- [x] Dereferenciación
+- [x] Punteros e `int`
+- [x] Punteros y `float`
+- [x] `scanf()` explicado mediante punteros
 
 ## Módulo 2 — Punteros y arrays
 
@@ -473,9 +473,9 @@ Comprender direcciones de memoria y trabajar directamente con referencias a dato
 
 ## Módulo 3 — Punteros y funciones
 
-- [ ] Paso por referencia
-- [ ] Modificar variables desde funciones
-- [ ] Punteros como parámetros
+- [x] Paso por referencia
+- [x] Modificar variables desde funciones
+- [x] Punteros como parámetros
 - [ ] Punteros a funciones — introducción
 
 ## Proyecto
@@ -508,14 +508,14 @@ Aprender a reservar y liberar memoria manualmente.
 
 - [ ] Stack
 - [ ] Heap
-- [ ] `malloc`
-- [ ] `calloc`
-- [ ] `realloc`
-- [ ] `free`
+- [ ] malloc
+- [ ] calloc
+- [x] realloc
+- [x] free
 - [ ] Memory leaks
 - [ ] Dangling pointers
-- [ ] NULL
-- [ ] Validación de asignaciones
+- [x] NULL
+- [x] Validación de asignaciones
 
 ## Ejercicios
 
@@ -783,7 +783,7 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
 
 - [x] Punteros — adelanto durante Fase 1
 - [ ] Memoria — adelanto
-- [ ] Structs — adelanto
+- [x] Structs — adelanto
 - [ ] Linux/sistemas — adelanto
 - [ ] Bitwise — adelanto
 - [x] **Adelanto con grupo de estudio (agosto 2026):**
@@ -809,6 +809,11 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
     - [x] Contar elementos (`ej1_parimpar.c`)
     - [x] Intercambiar posiciones (`ej4_intercambiarposiciones.c`)
     - [x] Insertar en posición (`ej5_desplazaderecha.c`)
+  - [x] **Sesión 17 — Refuerzo punteros + tarea 3:**
+    - [x] Punteros dobles (`**`) — concepto y mini-ejercicio
+    - [x] `realloc` con puntero temporal
+    - [x] Paso por referencia con punteros dobles
+    - [x] Modificar punteros desde funciones
 
 ---
 
@@ -1149,6 +1154,10 @@ Estado: ✅ Realizado
 
 Estado: ✅ Realizado
 
+## Checkpoint Fase 4 — Módulo 1: Punteros básicos
+
+Estado: ✅ Completado
+
 ---
 
 # 📈 REGISTRO DE SESIONES
@@ -1391,6 +1400,33 @@ Estado: 🟢 Fase 3 / Módulo 1 — ejercicios de refuerzo en progreso (3/5 comp
 
 Estado: ✅ Fase 3 completada. Próxima: Fase 4 — Punteros.
 
+## Sesión 17 — Fase 4: Punteros (Módulo 1 en progreso)
+
+- Punteros — refuerzo de conceptos básicos.
+- Practicado: `&` (dirección de memoria), `*` (declaración vs dereferenciación).
+- Punteros dobles (`**`) — concepto y mini-ejercicio completado.
+- `realloc` — patrón seguro con puntero temporal.
+- Archivos creados: `guia_tarea3.md` (plantilla para tarea 3 en CoderByte).
+- Tarea 3 iniciada: inventario con structs y memoria dinámica.
+- **Adelantos:** Módulo 3 (paso por referencia, modificar variables, punteros como parámetros) + Fase 5 (`realloc`, `free`, `NULL`, validación).
+
+Estado: 🟢 Fase 4 / Módulo 1 en progreso (6/8 conceptos completados). Tarea 3 en CoderByte.
+
+## Sesión 18 — Módulo 1 completado + Ejercicio de refuerzo
+
+- **Módulo 1 completado:** Punteros y `float`, `scanf()` con punteros.
+- **Ejercicio de refuerzo:** Sistema de Biblioteca (`biblioteca.c`) — 7 funciones.
+- Conceptos aplicados: `malloc`, `realloc`, `free`, `strcpy`, `strcmp`, structs, búsqueda, actualización.
+- Bugs corregidos en el ejercicio:
+  - `return -1` dentro del `for` → movido afuera.
+  - `strcmp` sin `== 0` → confundir retorno de `strcmp`.
+  - Comparación sin `if` → expresión suelta no hace nada.
+  - `==` vs `=` → asignar vs comparar.
+  - Dos `if` separados → `if / else if / else`.
+- **Módulo 1 COMPLETADO ✅**
+
+Estado: ✅ Fase 4 / Módulo 1 completado. Próximo: Módulo 2 — Punteros y arrays.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1430,13 +1466,13 @@ Al terminar esta ruta, el objetivo es que puedas:
 # 📌 ESTADO ACTUAL
 
 **Fase:** 4 — Punteros  
-**Módulo:** 1 — Conceptos básicos  
-**Próximo tema:** Direcciones de memoria, operador `&`, operador `*`, declaración de punteros  
-**Próximo reto:** Entender direcciones y trabajar con punteros
+**Módulo:** 2 — Punteros y arrays (por iniciar)  
+**Próximo tema:** Relación array/puntero, aritmética de punteros  
+**Próximo reto:** Recorrer arrays con punteros
 
-**Último concepto dominado:** Agenda de contactos con arrays paralelos, strings, punteros para modificar `total`.
+**Último concepto dominado:** `scanf()` con punteros, ejercicio de biblioteca con structs + memoria dinámica.
 
-**Último ejercicio:** `agenda_de_contactos.c` — Proyecto integrador de Fase 3.
+**Último ejercicio:** `biblioteca.c` — Sistema de gestión de libros (7 funciones).
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅ — Fase 3 ✅
 
