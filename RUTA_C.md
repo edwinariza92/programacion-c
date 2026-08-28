@@ -466,17 +466,17 @@ Comprender direcciones de memoria y trabajar directamente con referencias a dato
 
 ## Módulo 2 — Punteros y arrays
 
-- [ ] Relación array/puntero
-- [ ] Aritmética de punteros
-- [ ] Recorrer arrays con punteros
-- [ ] Strings y punteros
+- [x] Relación array/puntero
+- [x] Aritmética de punteros
+- [x] Recorrer arrays con punteros
+- [x] Strings y punteros
 
 ## Módulo 3 — Punteros y funciones
 
 - [x] Paso por referencia
 - [x] Modificar variables desde funciones
 - [x] Punteros como parámetros
-- [ ] Punteros a funciones — introducción
+- [x] Punteros a funciones — introducción
 
 ## Proyecto
 
@@ -1096,6 +1096,62 @@ Aprendizaje:
 - Una comparación sin `if` es **código muerto** — C la evalúa pero no la usa para nada.
 - Si querés que algo pase cuando la comparación es verdadera, envolverla en `if`.
 
+### Puntero a función sin inicializar (flag mal inicializado)
+
+Error:
+```c
+int (*operacion)(int, int);   // sin asignar aún
+int hayOperacion = 1;         // ❌ debería ser 0
+
+// usuario elige opción inválida → ningún case asigna operacion
+if (hayOperacion)             // 1 = verdadero → llama a un puntero sin asignar 💥
+    operacion(num1, num2);
+```
+
+Aprendizaje:
+- Un puntero a función debe **asignarse antes de llamarse**; llamarlo sin asignar es comportamiento indefinido.
+- El flag debe empezar en `0` ("aún no hay operación") y **reiniciarse a 0 en cada vuelta** del bucle, no solo al declararlo.
+- Declarar `int hayOperacion` dentro del `do` crea una **segunda variable** (shadowing) y deja muerta la de afuera: declarar fuera, asignar dentro (sin `int`).
+
+Solución:
+```c
+int hayOperacion = 0;
+do {
+    hayOperacion = 0;   // cada vuelta empieza limpia
+    ...
+    switch (opcion) {
+        case 1: operacion = sumar;  hayOperacion = 1; break;
+        ...
+    }
+    if (hayOperacion) printf("Resultado: %d\n", operacion(num1, num2));
+} while (opcion != 4);
+```
+
+### Modificar un string literal (segfault)
+
+Error:
+```c
+char *str = "Hola";
+str[0] = 'J';  // violación de segmento
+```
+
+Aprendizaje:
+- `char *str = "Hola"` apunta a un literal de string en memoria de solo lectura.
+- Intentar modificarlo causa segfault (violación de segmento).
+- Si necesitas modificar, usa un array: `char str[] = "Hola"`.
+
+Solución:
+```c
+char str[] = "Hola";  // array mutable
+str[0] = 'J';         // funciona
+
+// O si necesitas puntero con modificación:
+char *str = malloc(10 * sizeof(char));
+strcpy(str, "Hola");
+str[0] = 'J';
+free(str);
+```
+
 ### `printf` sin formato específico para subcadenas
 
 Error:
@@ -1154,7 +1210,7 @@ Estado: ✅ Realizado
 
 Estado: ✅ Realizado
 
-## Checkpoint Fase 4 — Módulo 1: Punteros básicos
+## Checkpoint Fase 4 — Módulo 2: Punteros y arrays
 
 Estado: ✅ Completado
 
@@ -1427,6 +1483,49 @@ Estado: 🟢 Fase 4 / Módulo 1 en progreso (6/8 conceptos completados). Tarea 3
 
 Estado: ✅ Fase 4 / Módulo 1 completado. Próximo: Módulo 2 — Punteros y arrays.
 
+## Sesión 19 — Módulo 2: Punteros y arrays (inicio)
+
+- **Concepto 1:** Relación array/puntero — `arr` es equivalente a `&arr[0]`.
+- **Ejercicio:** `relacion_array_puntero.c` — ver direcciones de memoria en main vs función.
+- **Concepto 2:** Aritmética de punteros — `*(arr + i)` equivalente a `arr[i]`.
+- **Ejercicio:** `aritmetica_punteros.c` — tres formas de recorrer un array.
+- **Reto 1:** Duplicar array con punteros (`duplicar_puntero.c`).
+- **Reto 2:** Invertir array con punteros (`invertir_punteros.c`, `invertir_inline.c`).
+- **Lección:** `swap` es opcional; la aritmética de punteros se usa en el bucle, no en el intercambio.
+- Pendiente: Strings y punteros (último concepto del Módulo 2).
+
+Estado: 🟢 Fase 4 / Módulo 2 en progreso (2/4 conceptos completados).
+
+## Sesión 20 — Módulo 2 completado
+
+- **Concepto 3:** `char[]` vs `char *` — mutable vs inmutable.
+- **Ejercicio:** `strings_punteros.c` — demostración de diferencias y segfault.
+- **Error aprendido:** Modificar string literal causa segfault (registrado en `# 🐛 ERRORES IMPORTANTES APRENDIDOS`).
+- **Reto:** `contarCaracteres.c` — recorrer string con puntero hasta `'\0'`.
+- **Concepto 4:** Recorrer strings con punteros — `while (*p != '\0')`.
+- **Checkpoint:** Aprobado — demostración de aritmética de punteros con strings.
+- **Archivos creados:** `contarCaracteres.c`
+
+Estado: ✅ Fase 4 / Módulo 2 completado. Próximo: Módulo 3 — Punteros y funciones.
+
+## Sesión 21 — Módulo 3 completado + Reorganización de archivos
+
+- **Concepto:** Punteros a funciones — `int (*operacion)(int, int)`.
+- **Ejemplo:** `punteros_funciones.c` — declarar, asignar y llamar vía puntero.
+- **Reto:** `punteros_funciones_calculadora.c` — calculadora con menú que elige la función según la opción.
+- **Bugs corregidos:**
+  - Código muerto: tres `operacion = ...` seguidos (solo quedaba la última).
+  - Llamar funciones directas en vez del puntero.
+  - `hayOperacion` inicializado en 1 → puntero sin inicializar al elegir opción inválida → comportamiento indefinido.
+  - `hayOperacion` no se reiniciaba cada vuelta → resultado fantasma al salir.
+  - Shadowing: `int hayOperacion` dentro del `do` creaba una segunda variable; la de afuera quedaba muerta.
+  - `%.d` → `%d`.
+- **Lecciones:** `=` (asignar) vs `==` (comparar); declarar una vez, asignar en cada vuelta.
+- **Organización de archivos:** carpetas por fase creadas (`01_fundamentos` ... `08_avanzado`), más `tareas/`, `coderbyte/`, `guias/`, `examen/`. Ejecutables borrados.
+- Archivos movidos: los `.c` de hoy → `04_punteros/`.
+
+Estado: ✅ Fase 4 / Módulo 3 completado. Próximo: Proyecto de Fase 4 — Biblioteca de operaciones mediante punteros.
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1466,13 +1565,15 @@ Al terminar esta ruta, el objetivo es que puedas:
 # 📌 ESTADO ACTUAL
 
 **Fase:** 4 — Punteros  
-**Módulo:** 2 — Punteros y arrays (por iniciar)  
-**Próximo tema:** Relación array/puntero, aritmética de punteros  
-**Próximo reto:** Recorrer arrays con punteros
+**Módulo:** 3 completado — Proyecto de Fase 4 por iniciar  
+**Próximo tema:** Proyecto 🔄 Biblioteca de operaciones mediante punteros  
+**Próximo reto:** Intercambio de variables, manipulación de arrays, menú
 
-**Último concepto dominado:** `scanf()` con punteros, ejercicio de biblioteca con structs + memoria dinámica.
+**Último concepto dominado:** Punteros a funciones — declarar, asignar y llamar (`int (*operacion)(int, int)`).
 
-**Último ejercicio:** `biblioteca.c` — Sistema de gestión de libros (7 funciones).
+**Último ejercicio:** `punteros_funciones_calculadora.c` — calculadora con puntero a función según la opción del menú.
+
+**Reorganización a partir de la Sesión 21:** los `.c` quedaron en carpetas por fase (`01_fundamentos` ... `08_avanzado`), más `tareas/`, `coderbyte/`, `guias/`, `examen/`.
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅ — Fase 3 ✅
 
