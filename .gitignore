@@ -7,3 +7,16 @@
 !.vscode/**
 !.opencode/
 !.opencode/**
+
+# Ejecutables y binarios compilados (sin extensión o con extensión de binario)
+**/*.out
+*.o
+*.obj
+*.exe
+*.elf
+*.class
+*.jar
+*.so
+*.a
+*.dylib
+*.dll

@@ -143,3 +143,85 @@
 - [x] Práctica: ejercicios de planificación con Gantt
 - [ ] Sesión tutor C: refuerzo structs + punteros + aritmética de punteros
 - [ ] Nuevo simulacro en 3-4 días con foco en temas fallados
+
+---
+
+## Simulacro 3 — 2026-08-31
+
+**Duración usada:** ~36 min (de 60 disponibles)
+**Nota final:** 73/100
+
+### Desglose por bloque
+
+| Bloque | Máximo | Obtenido | % |
+|---|---|---|---|
+| MCQ (18 preguntas) | 45 | 37.5 | 83.3% |
+| Código C (contactos structs+malloc) | 55 | 35.5 | 64.5% |
+
+### MCQ — Registro de preguntas
+
+| # | Pregunta (resumen) | Tu respuesta | Correcta | ¿Acertaste? |
+|---|---|---|---|---|
+| 1 | Cuello de botella Von Neumann | b | B | ✅ |
+| 2 | Contenido del IR | b | B | ✅ |
+| 3 | Característica de CISC | c | C | ✅ |
+| 4 | Branch "tomado" en pipeline | a | B | ❌ |
+| 5 | Función del DMA | c | C | ✅ |
+| 6 | Contenido del PCB | b | B | ✅ |
+| 7 | Modelo hilos uno-a-uno | b | B | ✅ |
+| 8 | Efecto convoy (FCFS) | c | C | ✅ |
+| 9 | Utilidad MLFQ | b | B | ✅ |
+| 10 | Función registro base/límite | c | B | ❌ |
+| 11 | Mejor vs primer ajuste | b | B | ✅ |
+| 12 | Thrashing | c | C | ✅ |
+| 13 | Contenido nodo-i | b | B | ✅ |
+| 14 | Salida aritmética punteros `ptr=arr+2` | c | C | ✅ |
+| 15 | Salida puntero doble `**pp=15` | c | C | ✅ |
+| 16 | Bug modificar string literal | b | C | ❌ |
+| 17 | Función `strcpy` | b | B | ✅ |
+| 18 | Salida `p[3]` y `*(p+2)` | a | A | ✅ |
+
+### MCQ — Errores por tema
+
+| # | Tema | Error | Tipo |
+|---|---|---|---|
+| 4 | Arq - Pipelining | Branch "tomado" no descarta instrucciones del pipeline (flush/control hazard) | Conceptual |
+| 10 | SO - Gestión Memoria | Confundir registro base/límite (protección) con MMU/tablas de páginas (traducción) | Conceptual |
+| 16 | C - Strings | Modificar string literal con `[]` (creer que `[]` no sirve con punteros) | Conceptual |
+
+**Patrón:** 3 de 3 errores son conceptuales (confusión entre mecanismos similares). El error de P16 ya estaba registrado en RUTA_C Sesión 20 pero volvió a fallar.
+
+### Código — problema2_examen.c (contactos structs+malloc)
+
+- **Compilación:** ✅ Sin errores con `-Wall`
+- **Struct:** ✅ Correcto (Contacto con id, nombre, telefono, activo)
+- **Firma función:** ✅ Correcta (Contacto **, *total, *capacidad, id, char[], char[])
+- **realloc + temp:** ✅ Correcto
+- **Verificación NULL:** ✅ Correcto
+- **strcpy:** ✅ Correcto
+- **Ejemplos:** ✅ Pasan (3 contactos, salida idéntica)
+- **ASan:** ✅ Sin errores en la forma entregada
+- **BUG (borde):** ❌ No soporta arrancar desde `capacidad = 0`. Si `main` empieza con NULL/0/0 (como pide el enunciado "sin conocer el tamaño"), `nuevaCapacidad = 0*2 = 0` → el 2º contacto escribe fuera de memoria (dato corrompido). Falta el caso `*capacidad == 0 → nuevaCapacidad = 1`.
+- **Observación:** campo `activo` no se usa para filtrar en impresión (falta función eliminar).
+- **Nota:** 64.5/100
+
+### Evolución vs Simulacro 2
+
+| Métrica | Simulacro 2 | Simulacro 3 | Cambio |
+|---|---|---|---|
+| MCQ | 72.2% | **83.3%** | +11.1% 📈 |
+| Código | 65% | **64.5%** | -0.5% 📉 |
+| **Nota total** | **68.6%** | **73%** | **+4.4%** 📈 |
+
+### Top 3 debilidades
+
+1. **Arranque desde capacidad 0** — patrón `*capacidad*2` falla si empieza en 0; bug nuevo recurrente de structs+malloc
+2. **Control hazard / branch prediction** (pipeline) — falla otra vez (antes data/resource hazard)
+3. **Registro base/límite vs MMU** — protección de memoria vs traducción de direcciones
+
+### Acciones concretas
+
+- [ ] Sesión tutor C: corregir patrón de arranque desde capacidad 0 en structs+malloc
+- [ ] Sesión tutor Arq/SO: repasar pipeline (control hazard/branch) y gestión de memoria (base/límite vs MMU)
+- [ ] Práctica: reescribir problema2 para que funcione desde NULL/0/0
+- [ ] Nuevo simulacro en 3-4 días con foco en temas fallados

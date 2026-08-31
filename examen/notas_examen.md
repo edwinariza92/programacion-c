@@ -130,6 +130,120 @@ void agregar(Producto **inv, int *cantidad, int id, int cant, ...) {
 
 ---
 
+## 📦 STRUCTS + MEMORIA DINÁMICA (Tarea 3 / Examen)
+
+### Template del struct
+
+```c
+typedef struct {
+    int id;
+    char nombre[50];
+    int cantidad;
+    float precio;
+} Producto;
+```
+
+### malloc — Reservar memoria
+
+```c
+// Reservar espacio para 3 structs Producto
+Producto *inventario = malloc(3 * sizeof(Producto));
+
+// SIEMPRE verificar que no falle
+if (inventario == NULL) {
+    printf("Error de memoria\n");
+    exit(1);
+}
+
+// Ahora puedo usarlo como un array
+inventario[0].id = 1;
+strcpy(inventario[0].nombre, "Teclado");
+inventario[0].cantidad = 10;
+inventario[0].precio = 25.50;
+```
+
+### realloc — Redimensionar (con puntero temporal)
+
+```c
+// El array está lleno, necesito duplicar capacidad
+int nuevaCapacidad = capacidad * 2;
+
+// ⚠️ SIEMPRE usar puntero temporal
+Producto *temp = realloc(inventario, nuevaCapacidad * sizeof(Producto));
+
+// Si realloc falla, inventario sigue apuntando a la memoria original
+if (temp == NULL) {
+    printf("Error de memoria\n");
+    exit(1);
+}
+
+// Solo si funcionó, actualizo el puntero original
+inventario = temp;
+capacidad = nuevaCapacidad;
+```
+
+> 📌 Si haces `inventario = realloc(inventario, ...)` directamente y falla, **pierdes la referencia** y generas memory leak.
+
+### free — Liberar memoria
+
+```c
+// Liberar la memoria reservada
+free(inventario);
+
+// Buena práctica: apuntar a NULL para evitar puntero colgante
+inventario = NULL;
+
+// Reiniciar contadores
+cantidadProductos = 0;
+capacidad = 0;
+```
+
+> 📌 Después de `free`, el puntero queda "colgante" (apunta a memoria liberada). `NULL` evita bugs.
+
+### Punteros dobles — cuándo y por qué
+
+```c
+void agregar(Producto **inventario, int *cantidad, ...) {
+    // ** → necesito modificar el PUNTERO original (asignar malloc/realloc)
+    // *  → necesito modificar el VALOR original (incrementar contador)
+    // sin * → solo leo, no modifico (id, nombre, etc.)
+    (*inventario)[*cantidad].id = id;  // acceder al struct en posición *cantidad
+}
+```
+
+| Parámetro | Necesito... | Ejemplo |
+|---|---|---|
+| `Producto **inventario` | Modificar el **puntero** (asignar malloc) | `*inventario = malloc(...)` |
+| `int *cantidad` | Modificar el **valor** (incrementar) | `(*cantidad)++` |
+| `int id` | Solo **leer** el valor | `id` directamente |
+
+### Checklist anti-bug structs
+
+- ☐ ¿Verifiqué `NULL` después de `malloc`/`realloc`?
+- ☐ ¿Usé `strcpy` para strings (nunca `=`)?
+- ☐ ¿El contador lleva `(*var)++` con paréntesis?
+- ☐ ¿`realloc` usa puntero temporal?
+- ☐ ¿Confundo `*cantidad` (contador) con `cant` (dato)?
+
+### ⚠️ BUG DEL ARRANQUE DESDE CAPACIDAD 0 (¡falló en simulacro 3!)
+
+```c
+// ❌ MAL: si *capacidad == 0 al inicio, 0*2 = 0 → nunca crece
+int nuevaCapacidad = *capacidad * 2;
+
+// ✅ BIEN: contemplar el arranque desde vacío
+int nuevaCapacidad = (*capacidad == 0) ? 1 : *capacidad * 2;
+```
+
+**Cuándo aplica:** si `main` inicia con `Contacto *lista = NULL; int total = 0; int capacidad = 0;`
+(como pide "la función debe trabajar sin conocer el tamaño de antemano").
+
+Sin este caso, el **2º elemento** se escribe en memoria sin asignar → dato corrompido.
+
+> 📌 Regla: siempre que redimensiones con `*X * 2`, pregúntate: *"¿y si X empieza en 0?"*
+
+---
+
 ## 🖥️ ARQUITECTURA Y SO — DIFERENCIAS QUE CONFUNDO
 
 ### Data Hazard vs Resource Hazard (Pipelining)
@@ -138,6 +252,38 @@ void agregar(Producto **inv, int *cantidad, int id, int cant, ...) {
 |---|---|---|
 | **Data hazard** | Una instrucción necesita el **resultado de otra** que aún no está listo | `R1 = R2 + R3` antes de que `R2` se escriba |
 | **Resource hazard** | Dos instrucciones necesitan la **misma etapa** al mismo tiempo | Dos `IF` en el mismo ciclo |
+
+### Big Endian vs Little Endian
+
+**¿Qué es?** El orden en que los bytes de un número se guardan en memoria.
+
+Ejemplo: el número `0x12345677` (4 bytes) se guarda en direcciones `1000, 1001, 1002, 1003`:
+
+| Endian | Dirección 1000 | 1001 | 1002 | 1003 | Regla |
+|---|---|---|---|---|---|
+| **Big Endian** | `12` | `34` | `56` | `77` | El **más significativo** primero (como se lee) |
+| **Little Endian** | `77` | `56` | `34` | `12` | El **menos significativo** primero (al revés) |
+
+```
+Número: 0x12345677
+
+Big Endian (Motorola, red):       Little Endian (Intel/AMD, x86):
+Direccion  Memoria                Direccion  Memoria
+  1000       12                     1000       77
+  1001       34                     1001       56
+  1002       56                     1002       34
+  1003       77                     1003       12
+```
+
+> 📌 **¿Cómo saber cuál usa tu máquina?** La mayoría de PCs usan **Little Endian** (Intel/AMD). Los sistemas de red suelen usar **Big Endian** (network byte order).
+
+> 📌 **En C:** puedes detectarlo con un puntero a `int`:
+> ```c
+> int x = 0x12345677;
+> char *p = (char *)&x;
+> if (*p == 0x77) printf("Little Endian\n");
+> else printf("Big Endian\n");
+> ```
 
 ### Throughput vs Latencia
 
@@ -189,6 +335,40 @@ void agregar(Producto **inv, int *cantidad, int id, int cant, ...) {
 | Stack | Propio | Propio |
 | Creación | `fork()` | `pthread_create()` |
 | Comunicación | IPC (señales, pipes, etc.) | Memoria compartida directa |
+
+### Control Hazard / Branch (Pipelining)
+
+¿Qué pasa cuando un **branch es TOMADO (taken)**?
+
+> El pipeline debe **descartar (flush)** las instrucciones que ya entraron detrás del branch, porque iban por la ruta equivocada.
+
+| Situación | Acción |
+|---|---|
+| Branch **no tomado** | Sigue la secuencia → no se descarta |
+| Branch **tomado** | Se **descartan** las instrucciones ya cargadas después del branch |
+
+> ⚠️ **Branch prediction** intenta ADIVINAR de antemano si el salto será tomado para evitar el flush. Pero si el branch es tomado y no se predijo bien, igual hay que descartar.
+
+### Registro Base + Límite vs MMU (Gestión de Memoria)
+
+| Mecanismo | Función |
+|---|---|
+| **Registro base + límite** | **PROTEGER**: define el rango legal de direcciones del proceso (base a base+límite). Evita que un proceso acceda a memoria ajena. |
+| **MMU / Tabla de páginas** | **TRADUCIR**: convierte direcciones lógicas/virtuales en direcciones físicas. |
+
+> ⚠️ NO confundir: base/límite **protege el rango**, no traduce direcciones.
+
+### Modificar un string literal (segfault)
+
+```c
+char *str = "Hola";
+str[0] = 'J';   // ❌ segfault — literal en memoria de SOLO LECTURA
+
+char str[] = "Hola";  // ✅ array mutable, funciona
+str[0] = 'J';
+```
+
+> ⚠️ Un `char *` apuntando a un literal **sí puede** usar `[]`, pero **no para modificar**.
 
 ---
 
@@ -247,6 +427,9 @@ t=12-21: P3 (le quedan 0) ✅ Cola: []
 7. **Conceptos similares** → al responder MCQ, preguntar: *"¿qué lo diferencia exactamente del otro?"*
 8. **Parámetros con nombres similares** → `cant` vs `cantidad`: *"¿cuál tiene el dato que necesito?"*
 9. **Aritmética de punteros** → `*(ptr + n)` accede al elemento en posición `n`, NO es una dirección
+10. **Arranque desde capacidad 0** → si `*capacidad*2`, el caso inicial `*capacidad==0` te deja en 0: usar ternario `(*capacidad==0)?1:*capacidad*2`
+11. **Base/límite vs MMU** → base/límite PROTEGE (rango legal), MMU TRADUCE (lógica→física)
+12. **Branch tomado** → se DESCARTA (flush) lo que ya entró detrás del branch
 
 ---
 
@@ -256,4 +439,4 @@ t=12-21: P3 (le quedan 0) ✅ Cola: []
 
 ---
 
-*Basada en guia_examen.md + simulacro 2026-08-26 (53%) + simulacro 2026-08-28 (68.6%). Examen: 4 de septiembre.*
+*Basada en guia_examen.md + guia_tarea3.md + simulacro 2026-08-26 (53%) + simulacro 2026-08-28 (68.6%) + simulacro 2026-08-31 (73%). Examen: 4 de septiembre.*

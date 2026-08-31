@@ -464,6 +464,13 @@ Comprender direcciones de memoria y trabajar directamente con referencias a dato
 - [x] Punteros y `float`
 - [x] `scanf()` explicado mediante punteros
 
+### 🔁 Refuerzo (2026-08-31, simulacro 3)
+
+- **Expresión ternaria:** `(condición) ? valor_si_true : valor_si_falsa` — equivalente a `if/else` en una línea. Ya se usaba en `biblioteca.c` (`disponible ? "Disponible" : "Prestado"`) sin saber el nombre. Practicada en `04_punteros/ternaria1.c`.
+- **Bug aprendido:** usar una variable antes de leerla (ternaria calculada con `num` sin `scanf` previo) → siempre leer/asignar antes de calcular.
+- **`realloc(NULL, n)` actúa como `malloc(n)`** → un array dinámico puede arrancar en `NULL` / capacidad `0` y dejar que `realloc` gestione todo; NO hace falta `malloc` previo.
+- **Bug de arranque desde capacidad `0`:** `0 * 2 = 0` → usar la ternaria `nuevaCapacidad = (*capacidad == 0) ? 1 : *capacidad * 2`.
+
 ## Módulo 2 — Punteros y arrays
 
 - [x] Relación array/puntero
