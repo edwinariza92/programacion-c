@@ -821,6 +821,15 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
     - [x] `realloc` con puntero temporal
     - [x] Paso por referencia con punteros dobles
     - [x] Modificar punteros desde funciones
+  - [x] **Sesión 22 — Taller archivos binarios (adelanto Fase 7):**
+    - [x] `fopen("rb")` / `fread()` / `fclose()` — lectura binaria
+    - [x] Little endian: decodificar header con fórmula manual
+    - [x] Structs para registros: `Estudiante`, `Curso`, `Matricula`
+    - [x] `malloc` para arrays dinámicos de structs
+    - [x] Bitwise: `>>` y `& 1` para extraer flags (género, nivel)
+    - [x] `argc` / `argv` / `atoi()` — argumentos de línea de comandos
+    - [x] Búsqueda lineal por ID para relacionar secciones
+    - [x] Acumuladores + casting para promedios
 
 ---
 
@@ -1533,6 +1542,33 @@ Estado: ✅ Fase 4 / Módulo 2 completado. Próximo: Módulo 3 — Punteros y fu
 
 Estado: ✅ Fase 4 / Módulo 3 completado. Próximo: Proyecto de Fase 4 — Biblioteca de operaciones mediante punteros.
 
+## Sesión 22 — Taller de archivos binarios (adelanto Fase 7)
+
+- **Taller:** *"Explorando Datos en Archivos Binarios con C"* (Ruta 1 — Taller).
+- **Verificador completo** (`verificador.c`): lectura de header (little endian, magic 0xaaae), 1000 estudiantes, 50 cursos, 12060 matrículas.
+- **Conceptos trabajados:**
+  - `fopen("rb")` / `fread()` / `fclose()` — lectura de archivos binarios
+  - Little endian: decodificar 4 bytes a `uint` con fórmula `b[0]+b[1]*256+b[2]*65536+b[3]*16777216`
+  - `fread(&estructura, sizeof(est), 1, fp)` — leer un registro completo
+  - `fread(array, sizeof(est), count, fp)` — leer N registros de golpe (array dinámico)
+  - `malloc` para arrays de structs de tamaño runtime
+  - Operadores bitwise: `>>` (desplazamiento), `& 1` (extraer bit) para flags de género y nivel
+  - `argc` / `argv` / `atoi()` — argumentos de línea de comandos
+  - Búsqueda lineal por ID para relacionar secciones (matrícula→curso, matrícula→estudiante)
+  - Acumuladores por curso + casting `(float)` para promedio decimal
+  - Signing warnings: `unsigned int` vs `int` en comparaciones
+- **Tarea 1 completada** (`edwin_ariza_tarea1.c`, 20%): filtrar estudiantes por rango de edad con args CLI. Salida verificada: 612 estudiantes en rango 20-25.
+- **Tarea 2 completada** (`edwin_ariza_tarea2.c`, 35%): promedio de edad por curso. 50 cursos con promedios ~23.5.
+- **Bugs / lecciones:**
+  - `fread(buffer, 1, 14, fp)` indispensable antes de usar el buffer — sin él, basura
+  - `argc < 4` (no `== 4`): argumentos extra no afectan, pero faltar=args insuficientes
+  - `atoi("texto")` devuelve 0 si no hay dígitos → validar externamente
+  - `if (edad_min && edad_max)` ≠ `if (est.age >= edad_min && ...)` → confundir condición con valor existente
+  - Struct padding: `sizeof(Estudiante)=32` y `sizeof(Curso)=40` coinciden exactamente (sin padding en este caso)
+- **Pendiente:** Tarea 3 — Estadísticas de matrícula por género/nivel (45%)
+
+Estado: 🟢 Taller en progreso (tareas 1-2 ✅, tarea 3 pendiente). Adelanto a Fase 7 (Archivos).
+
 ---
 
 # 🎯 REGLAS DEL CURSO
@@ -1573,14 +1609,19 @@ Al terminar esta ruta, el objetivo es que puedas:
 
 **Fase:** 4 — Punteros  
 **Módulo:** 3 completado — Proyecto de Fase 4 por iniciar  
-**Próximo tema:** Proyecto 🔄 Biblioteca de operaciones mediante punteros  
-**Próximo reto:** Intercambio de variables, manipulación de arrays, menú
 
-**Último concepto dominado:** Punteros a funciones — declarar, asignar y llamar (`int (*operacion)(int, int)`).
+**Adelanto activo:** Taller de archivos binarios (Fase 7) — tareas 1 y 2 completadas, tarea 3 pendiente.
 
-**Último ejercicio:** `punteros_funciones_calculadora.c` — calculadora con puntero a función según la opción del menú.
+**Próximo tema del curso:** Proyecto 🔄 Biblioteca de operaciones mediante punteros  
+**Próximo reto del taller:** Tarea 3 — Estadísticas de matrícula por género y nivel (45%)
 
-**Reorganización a partir de la Sesión 21:** los `.c` quedaron en carpetas por fase (`01_fundamentos` ... `08_avanzado`), más `tareas/`, `coderbyte/`, `guias/`, `examen/`.
+**Último concepto dominado:** Archivos binarios — lectura con `fread`, structs, little endian, flags bitwise, acumuladores por curso.
+
+**Últimos archivos:**
+- `taller/edwin_ariza_tarea1.c` — rango de edad (20%) ✅
+- `taller/edwin_ariza_tarea2.c` — promedio por curso (35%) ✅
+- `taller/verificador.c` — lector completo del `.bin`
+- `taller/GUIA_TALLER.md` — guía de desarrollo
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅ — Fase 3 ✅
 
