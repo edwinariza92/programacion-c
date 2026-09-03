@@ -821,15 +821,19 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
     - [x] `realloc` con puntero temporal
     - [x] Paso por referencia con punteros dobles
     - [x] Modificar punteros desde funciones
-  - [x] **Sesión 22 — Taller archivos binarios (adelanto Fase 7):**
-    - [x] `fopen("rb")` / `fread()` / `fclose()` — lectura binaria
-    - [x] Little endian: decodificar header con fórmula manual
-    - [x] Structs para registros: `Estudiante`, `Curso`, `Matricula`
-    - [x] `malloc` para arrays dinámicos de structs
-    - [x] Bitwise: `>>` y `& 1` para extraer flags (género, nivel)
-    - [x] `argc` / `argv` / `atoi()` — argumentos de línea de comandos
-    - [x] Búsqueda lineal por ID para relacionar secciones
-    - [x] Acumuladores + casting para promedios
+   - [x] **Sesión 22 — Taller archivos binarios (adelanto Fase 7):**
+     - [x] `fopen("rb")` / `fread()` / `fclose()` — lectura binaria
+     - [x] Little endian: decodificar header con fórmula manual
+     - [x] Structs para registros: `Estudiante`, `Curso`, `Matricula`
+     - [x] `malloc` para arrays dinámicos de structs
+     - [x] Bitwise: `>>` y `& 1` para extraer flags (género, nivel)
+     - [x] `argc` / `argv` / `atoi()` — argumentos de línea de comandos
+     - [x] Búsqueda lineal por ID para relacionar secciones
+     - [x] Acumuladores + casting para promedios
+     - [x] Tarea 1 — Estudiantes por rango de edad (20%) ✅
+     - [x] Tarea 2 — Promedio de edad por curso (35%) ✅
+     - [x] Tarea 3 — Estadísticas de matrícula por género/nivel (45%) ✅
+     - [x] Valgrind: "All heap blocks were freed -- no leaks are possible"
 
 ---
 
@@ -1558,18 +1562,74 @@ Estado: ✅ Fase 4 / Módulo 3 completado. Próximo: Proyecto de Fase 4 — Bibl
   - Acumuladores por curso + casting `(float)` para promedio decimal
   - Signing warnings: `unsigned int` vs `int` en comparaciones
 - **Tarea 1 completada** (`edwin_ariza_tarea1.c`, 20%): filtrar estudiantes por rango de edad con args CLI. Salida verificada: 612 estudiantes en rango 20-25.
-- **Tarea 2 completada** (`edwin_ariza_tarea2.c`, 35%): promedio de edad por curso. 50 cursos con promedios ~23.5.
+- **Tarea 2 completada** (`edwin_ariza_tarea2.c`, 35%): promedio de edad por curso. 50 cursos con promedios ~23.5. Verificada con Valgrind: cero memory leaks (agregado `fclose(fp)`, `free(estudiantes)`, `free(cursos)`).
+- **Tarea 3 completada** (`edwin_ariza_tarea3.c`, 45%): estadísticas de matrícula por género/nivel.
+  - Estructura `Fila` con `contadores[4]` ([mU, fU, mG, fG]) y array dinámico `vistos[]`.
+  - Lógica de estudiantes distintos: un estudiante cuenta 1 vez por combinación (year, semester).
+  - Búsqueda/creación de filas por `(year, semester)` con `realloc`.
+  - Tabla final generada: 40 filas (20 años × 2 semestres).
+  - Valgrind: "All heap blocks were freed -- no leaks are possible" ✅
 - **Bugs / lecciones:**
-  - `fread(buffer, 1, 14, fp)` indispensable antes de usar el buffer — sin él, basura
-  - `argc < 4` (no `== 4`): argumentos extra no afectan, pero faltar=args insuficientes
-  - `atoi("texto")` devuelve 0 si no hay dígitos → validar externamente
-  - `if (edad_min && edad_max)` ≠ `if (est.age >= edad_min && ...)` → confundir condición con valor existente
-  - Struct padding: `sizeof(Estudiante)=32` y `sizeof(Curso)=40` coinciden exactamente (sin padding en este caso)
-- **Pendiente:** Tarea 3 — Estadísticas de matrícula por género/nivel (45%)
+  - `fread(buffer, 1, 14, fp)` indispensable antes de usar el buffer — sin él, basura.
+  - `argc < 4` (no `== 4`): argumentos extra no afectan, pero faltar=args insuficientes.
+  - `atoi("texto")` devuelve 0 si no hay dígitos → validar externamente.
+  - `if (edad_min && edad_max)` ≠ `if (est.age >= edad_min && ...)` → confundir condición con valor existente.
+  - Struct padding: `sizeof(Estudiante)=32` y `sizeof(Curso)=40` coinciden exactamente.
+  - **Variable shadowing** en bucles anidados: usar nombres distintos de índice (`i` vs `j`) para no ocultar el externo.
+  - **Incoherencia capacidad/puntero:** `cap_filas > 0` pero `filas == NULL` causa segfault al desreferenciar. Deben ser coherentes.
+  - **Lógica dentro/afuera de `if`:** el procesamiento de cada matrícula (verificar vistos, sumar contador) debe ir FUERA del `if (idx == -1)`, porque la lógica aplica siempre (a la fila recién creada también).
+  - **Memory leaks con realloc:** hacer `malloc` nuevo y perder el puntero anterior si no se guarda antes con `temp = realloc(...)`.
+  - **`fclose(fp)`** debe ir al final, como `free()` — el sistema lo reclama, pero buena práctica.
+- **Valgrind:** "All heap blocks were freed -- no leaks are possible" (319 allocs, 319 frees).
 
-Estado: 🟢 Taller en progreso (tareas 1-2 ✅, tarea 3 pendiente). Adelanto a Fase 7 (Archivos).
+Estado: ✅ Taller de archivos binarios completado (tareas 1-3 ✅). Adelanto a Fase 7 (Archivos).
 
----
+## Sesión 23 — Taller archivos binarios: Tarea 3 completada + Valgrind
+
+- **Tarea 3 completada** (`edwin_ariza_tarea3.c`, 45%): estadísticas de matrícula por género/nivel.
+  - Estructura `Fila` con `contadores[4]` ([mU, fU, mG, fG]) y array dinámico `vistos[]`.
+  - Lógica de "estudiantes distintos": un estudiante cuenta 1 vez por combinación (year, semester).
+  - Búsqueda/creación de filas por `(year, semester)` con `realloc`.
+  - Tabla final: 40 filas (20 años × 2 semestres).
+  - Salida: `Year | Semester | Male Undergrad | Female Undergrad | Male Grad | Female Grad`.
+- **`fclose(fp)`** agregado al final — cierre correcto del archivo.
+- **Valgrind verificado:** "All heap blocks were freed -- no leaks are possible" (319 allocs, 319 frees). 0 errors.
+- **Bug aprendido (shadowing):** usar `i` en dos bucles `for` anidados oculta el externo → usá `j` en el interno.
+- **Bug aprendido (capacidad/puntero incoherente):** `cap_filas = 1` pero `filas = NULL` → crash al desreferenciar `filas[0]`. Solución: `cap_filas = 0` con la ternaria de arranque.
+- **Bug aprendido (estructura de control):** el procesamiento de cada matrícula (verificar vistos, sumar) debe ir FUERA del `if (idx == -1)`. Si está dentro, la lógica no aplica a las filas ya existentes ni se ejecuta correctamente.
+- **Bug aprendido (return dentro del for):** `return 0` dentro del bucle de matrículas → termina en la primera iteración. Debe ir al final de `main`.
+
+Estado: ✅ Taller de archivos binarios completado (tareas 1-3 ✅). Adelanto a Fase 7 (Archivos).
+
+## Sesión 24 — Preparación examen final + Ejercicio 1 del Simulacro 4 (2026-09-03)
+
+**Objetivo:** reforzar lógica para el examen del 4 de septiembre (30 MCQ + código desde main + código "desordenado").
+
+### Trabajo en la chuleta (`CHULETA_IMPRIMIR.md` / `.pdf` / `.html`)
+- **PÁGINA 2 nueva — Método para problemas nuevos (lógica):** entender problema → pseudocódigo → traducir a código. Incluye 4 patrones reutilizables: **Filtrar**, **Fusionar**, **Buscar y modificar**, **Contar/acumular**, cada uno con template completo.
+- **PÁGINA 5 nueva — Corregir código "desordenado":** método de las 5 cajas de bugs (condición de bucle, número fijo, índice inicial, dirección del `for`, comparación invertida) + técnica de trazar 1 vuelta + regla de oro del **swap** (3 líneas con `temp`, la temporal solo se copia en el último paso) + los 3 desórdenes más comunes y su cura + checklist.
+- PDF generado compacto (~7 páginas) para imprimir. HTML disponible también.
+
+### Ejercicio 1 del Simulacro 4: `eliminarDuplicados` ✅ COMPLETADO
+- Pasó los 4 tests (con duplicados, sin duplicados, todos duplicados, un solo elemento).
+- Conceptos reforzados:
+  - **`void` vs `Producto *`:** el tipo delante del nombre = tipo de lo que retorna; debe coincidir con la variable del `main` (`Producto *res = funcion(...)`).
+  - **Por qué `capacidad` se ignora:** el resultado solo se REDUCE (se quitan duplicados), nunca se agrega → no hay `realloc`. Regla: mirá el `main` y preguntá "¿puede crecer el resultado?".
+  - **Búsqueda lineal con 2 bucles:** externo recorre original, interno busca si el id ya está en `resultado`.
+  - **Bandera `duplicado` + `break`** para comunicar entre bucles.
+
+### Práctica: detectar error en código desordenado (`detectarerror.c`)
+- Código que ordenaba pero con **swap mal hecho** (`arr[j] = arr[i]` en vez de `arr[j] = temp`) → duplicaba valores y salía desordenado.
+- Detectado y corregido por el alumno sin ayuda usando el método de la Página 5.
+- Lección clave: **el swap siempre 3 líneas, la temporal se copia SOLO en el último paso**.
+
+### Ejercicios pendientes (para casa)
+- `ejercicio2_fucionar_listas.c` y `ejercicio3_inventario_binario.c` del Simulacro 4 (aún vacíos).
+
+### Recomendación para el examen
+- Llevar **solo la chuleta** (tiene templates + método), NO los programas viejos. Más papel para trazar.
+
+Estado: 🟢 Preparación examen final en curso (ejercicio 1 del Simulacro 4 ✅). Examen: 4 de septiembre.
 
 # 🎯 REGLAS DEL CURSO
 
@@ -1608,20 +1668,18 @@ Al terminar esta ruta, el objetivo es que puedas:
 # 📌 ESTADO ACTUAL
 
 **Fase:** 4 — Punteros  
-**Módulo:** 3 completado — Proyecto de Fase 4 por iniciar  
+**Módulo:** 3 completado — Proyecto de Fase 4 por iniciar
 
-**Adelanto activo:** Taller de archivos binarios (Fase 7) — tareas 1 y 2 completadas, tarea 3 pendiente.
+**Adelanto activo:** Taller de archivos binarios (Fase 7) — **tareas 1, 2 y 3 completadas** ✅.
 
-**Próximo tema del curso:** Proyecto 🔄 Biblioteca de operaciones mediante punteros  
-**Próximo reto del taller:** Tarea 3 — Estadísticas de matrícula por género y nivel (45%)
+**Próximo tema del curso:** Proyecto 🔄 Biblioteca de operaciones mediante punteros
 
-**Último concepto dominado:** Archivos binarios — lectura con `fread`, structs, little endian, flags bitwise, acumuladores por curso.
+**Último concepto dominado:** Estructuras dinámicas anidadas (`Fila` con `vistos[]`), lógica de "estudiantes distintos", `realloc` en doble nivel, `fclose`/`free`/Valgrind para verificar cero leaks.
 
 **Últimos archivos:**
-- `taller/edwin_ariza_tarea1.c` — rango de edad (20%) ✅
-- `taller/edwin_ariza_tarea2.c` — promedio por curso (35%) ✅
-- `taller/verificador.c` — lector completo del `.bin`
-- `taller/GUIA_TALLER.md` — guía de desarrollo
+- `taller/edwin_ariza_tarea3.c` — estadísticas de matrícula, Valgrind limpio ✅
+- `taller/edwin_ariza_tarea2.c` — promedio por curso, con `free` y `fclose` ✅
+- `taller/tarea3.c` / `tarea3` — ejecutable final
 
 **Fases completadas:** Fase 1 ✅ — Fase 2 ✅ — Fase 3 ✅
 

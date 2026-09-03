@@ -2,6 +2,28 @@
 
 ---
 
+## Simulacro 4 — Sesión tutor (2026-09-03 tarde)
+
+**Ejercicio 1 — eliminarDuplicados** ✅ COMPLETADO (con tutor)
+- Implementado siguiendo el método de 5 pasos: entender → roles → trazar → código → comparar
+- Pasó los 4 tests (con duplicados, sin duplicados, todos duplicados, un solo elemento)
+- Conceptos reforzados:
+  - Diferencia `void` vs `Producto *` (retorno = tipo que recibe el main)
+  - Por qué `capacidad` se ignora en este ejercicio (solo se reduce, no se agrega)
+  - Búsqueda lineal con dos bucles (externo recorre original, interno busca en resultado)
+  - Bandera `duplicado` + `break` comunicando entre bucles
+
+**Pendiente:** ejercicios 2 (fusionar listas) y 3 (inventario binario) — para hacer en casa.
+
+**Nuevo material de chuleta creado:**
+- PÁGINA 2 — Método para problemas nuevos (lógica + 4 patrones: filtrar, fusionar, buscar/modificar, contar)
+- PÁGINA 5 — Corregir código "desordenado" (5 cajas de bugs + método de traza + swap)
+- PDF generado: `CHULETA_IMPRIMIR.pdf` + HTML `CHULETA_IMPRIMIR.html`
+
+---
+
+---
+
 ## Simulacro 1 — 2026-08-26
 
 **Duración usada:** ~5 min (de 60 disponibles)
@@ -225,3 +247,128 @@
 - [ ] Sesión tutor Arq/SO: repasar pipeline (control hazard/branch) y gestión de memoria (base/límite vs MMU)
 - [ ] Práctica: reescribir problema2 para que funcione desde NULL/0/0
 - [ ] Nuevo simulacro en 3-4 días con foco en temas fallados
+
+---
+
+## Simulacro 4 — 2026-09-03 (Simulacro Completo — 4 horas)
+
+**Duración usada:** 3h 8min (de 4 horas disponibles)
+**Nota MCQ:** 41/50 = **82%**
+**Código C:** Pendiente (con tutor después de almuerzo)
+
+### Desglose por bloque
+
+| Bloque | Máximo | Obtenido | % |
+|---|---|---|---|
+| MCQ (50 preguntas) | 50 | 41 | 82% |
+| Código C (3 ejercicios) | — | Pendiente | — |
+
+### MCQ — Registro de preguntas
+
+| # | Pregunta (resumen) | Tu respuesta | Correcta | ¿Acertaste? |
+|---|---|---|---|---|
+| 1 | Característica fundamental Von Neumann | B | B | ✅ |
+| 2 | Componente que coordina ejecución | B | B | ✅ |
+| 3 | Cuello de botella Von Neumann | B | B | ✅ |
+| 4 | ¿Qué almacena el Program Counter? | B | B | ✅ |
+| 5 | Qué se obtiene en FETCH | B | B | ✅ |
+| 6 | Qué componente modifica PC en salto | B | B | ✅ |
+| 7 | Principal diferencia CISC vs RISC | D | A | ❌ |
+| 8 | ARM es ejemplo de arquitectura | B | B | ✅ |
+| 9 | Little Endian: cómo se guarda 0x12345678 | B | B | ✅ |
+| 10 | Big Endian: byte más significativo en... | B | A | ❌ |
+| 11 | Decodificar LE: 0x02,0x00,0x00,0x00 | B | A | ❌ |
+| 12 | ¿Qué es un data hazard? | B | B | ✅ |
+| 13 | Para qué sirve branch prediction | B | B | ✅ |
+| 14 | Throughput pipeline 5 etapas | B | B | ✅ |
+| 15 | ¿Qué es modo supervisor? | B | B | ✅ |
+| 16 | Llamadas al sistema permiten... | B | B | ✅ |
+| 17 | ¿Qué permite el DMA? | D | B | ❌ |
+| 18 | Diferencia programa vs proceso | B | B | ✅ |
+| 19 | ¿Qué sucede después de fork()? | B | A | ❌ |
+| 20 | Proceso bloqueado porque... | B | B | ✅ |
+| 21 | Recursos compartidos entre hilos | B | B | ✅ |
+| 22 | Concurrencia vs paralelismo | B | B | ✅ |
+| 23 | Flag para compilar con pthread | B | B | ✅ |
+| 24 | Principal desventaja FCFS | B | B | ✅ |
+| 25 | Round Robin quantum=4, ráfaga=10 | C | C | ✅ |
+| 26 | Algoritmo minimiza waiting time | B | C | ❌ |
+| 27 | Desempate en SPN misma ráfaga | B | B | ✅ |
+| 28 | Mejor ajuste huecos [100,500,200,300,600] | A | A | ✅ |
+| 29 | Fragmentación externa ocurre cuando... | A | A | ✅ |
+| 30 | Siguiente ajuste comienza desde... | B | B | ✅ |
+| 31 | Registro base y límite sirve para... | B | B | ✅ |
+| 32 | ¿Qué es un page fault? | B | B | ✅ |
+| 33 | Anomalía de Belady en FIFO | A | A | ✅ |
+| 34 | ¿Qué es el TLB? | A | A | ✅ |
+| 35 | ¿Qué es un nodo-i? | B | B | ✅ |
+| 36 | ¿Qué contiene el MBR? | B | B | ✅ |
+| 37 | Salida `*p + 5` con puntero | B | B | ✅ |
+| 38 | Modificar `str[]` con puntero | B | B | ✅ |
+| 39 | Intercambio con punteros y temp | B | B | ✅ |
+| 40 | printf con malloc + strcpy + free | A | A | ✅ |
+| 41 | Puntero desplazado `arr + 2` | C | C | ✅ |
+| 42 | Función swap con punteros | A | A | ✅ |
+| 43 | Puntero doble `**pp` | B | C | ❌ |
+| 44 | strcmp con strings iguales | B | B | ✅ |
+| 45 | Array de structs con malloc + strcpy | B | B | ✅ |
+| 46 | Código sin free() al final | B | B | ✅ |
+| 47 | `*(p+3)` y `*p` con aritmética | B | B | ✅ |
+| 48 | strcpy + strcat concatenando | B | C | ❌ |
+| 49 | Modificar string literal `char *msg` | A | C | ❌ |
+| 50 | Dos punteros al mismo malloc | B | B | ✅ |
+
+### MCQ — Errores por tema
+
+| # | Tema | Error | Tipo |
+|---|---|---|---|
+| 7 | CISC vs RISC | Confundir dirección de registros con ciclos de ejecución (D al revés) | Conceptual |
+| 10 | Big Endian | Confundir dirección baja con alta para byte más significativo | Conceptual |
+| 11 | Little Endian | Decodificar bytes en orden incorrecto (usar fórmula Big Endian) | Cálculo |
+| 17 | DMA | Confundir DMA con traducción de direcciones (procesos/memory) | Conceptual |
+| 19 | Procesos | Creer que fork() destruye al padre (ambos continúan) | Conceptual |
+| 26 | Planificación | Confundir Round Robin (justo) con SPN (minimiza waiting) | Conceptual |
+| 43 | Código C | No desreferenciar `**pp` correctamente (puntero doble) | Lectura código |
+| 48 | Código C | No acumular strcat (creer que sobrescribe) | Lectura código |
+| 49 | Código C | Creer que string literal se puede modificar con `char *` | Conceptual |
+
+**Patrón:** 7 de 9 errores son conceptuales (confusión entre conceptos similares o mecanismos). 2 son de lectura de código.
+
+### Desglose por tema
+
+| Tema | Preguntas | Correctas | Nota |
+|---|---|---|---|
+| Von Neumann | 3 | 3 | 100% |
+| Ciclo de Instrucción | 3 | 3 | 100% |
+| CISC vs RISC + Endian | 5 | 2 | **40%** ⚠️ |
+| Pipelining | 3 | 3 | 100% |
+| Estructuras de SO | 3 | 3 | 100% |
+| Procesos | 3 | 2 | 67% |
+| Hilos | 3 | 3 | 100% |
+| Planificación de CPU | 4 | 3 | 75% |
+| Gestión de Memoria | 4 | 4 | 100% |
+| Memoria Virtual | 3 | 3 | 100% |
+| Sistemas de Archivos | 2 | 2 | 100% |
+| Código C | 14 | 11 | 79% |
+
+### Evolución — Histórico completo
+
+| Simulacro | Fecha | Duración | MCQ | Código | Nota total |
+|---|---|---|---|---|---|
+| Simulacro 1 | 2026-08-26 | 5 min | 39% | 86% | 53% |
+| Simulacro 2 | 2026-08-28 | 57 min | 72.2% | 65% | 68.6% |
+| Simulacro 3 | 2026-08-31 | 36 min | 83.3% | 64.5% | 73% |
+| **Simulacro 4** | **2026-09-03** | **3h 8min** | **82%** | **Pendiente** | **82% (parcial)** |
+
+### Top 3 debilidades
+
+1. **CISC vs RISC + Endian (40%)** — Confusión sobre dirección de bytes (Big vs Little Endian), decodificación manual, diferencias entre arquitecturas
+2. **Código C: punteros dobles y strings (79%)** — `**pp`, acumulación de `strcat`, string literals vs arrays
+3. **Procesos / Planificación (67-75%)** — fork() no destruye padre, DMA permite E/S sin CPU, SPN minimiza waiting
+
+### Acciones concretas
+
+- [ ] Sesión tutor C: repasar punteros dobles (`**`), string literals vs arrays (`char *` vs `char[]`), strcat
+- [ ] Sesión tutor Arq/SO: repasar Big/Little Endian (fórmula de decodificación, dirección de bytes), fork(), DMA, SPN vs Round Robin
+- [ ] Completar los 3 ejercicios de código C pendientes (con tutor)
+- [ ] Nuevo simulacro enfocado en CISC/RISC + Endian + código C antes del examen final

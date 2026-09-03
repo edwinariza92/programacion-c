@@ -1,7 +1,7 @@
 # 🎓 CHULETA DE EXAMEN — Etapa 1
 
 > **Imprime esto (máx 4 páginas).** Lleva al examen del 4 de septiembre.
-> Última actualización: 2026-08-28
+> Última actualización: 2026-09-03
 
 ---
 
@@ -285,6 +285,22 @@ Direccion  Memoria                Direccion  Memoria
 > else printf("Big Endian\n");
 > ```
 
+### Decodificación Little Endian — Fórmula
+
+Si lees 4 bytes en Little Endian: `b[0], b[1], b[2], b[3]`
+
+```
+Valor = b[0] + b[1]*256 + b[2]*65536 + b[3]*16777216
+        b[0] + b[1]*256¹ + b[2]*256² + b[3]*256³
+```
+
+**Ejemplo:** bytes `0x02, 0x00, 0x00, 0x00`
+Valor = 2 + 0 + 0 + 0 = **2**
+
+**Big Endian es al revés:** b[3] + b[2]*256 + b[1]*65536 + b[0]*16777216
+
+> ⚠️ **Regla:** Little Endian = byte en dirección baja = **menos** significativo. Big Endian = byte en dirección baja = **más** significativo.
+
 ### Throughput vs Latencia
 
 | Concepto | Significado |
@@ -296,8 +312,14 @@ Direccion  Memoria                Direccion  Memoria
 
 | Mecanismo | Para qué sirve |
 |---|---|
-| **`fork()`** | Crear un **nuevo proceso** (copia del actual) |
+| **`fork()`** | Crear un **nuevo proceso** (copia del actual). **AMBOS continúan** ejecutándose. Al padre le retorna PID del hijo (>0), al hijo le retorna 0. |
 | **System calls** | Mecanismo general para que un proceso **solicite servicios del kernel** (lectura de archivos, creación de procesos, etc.) |
+
+### DMA (Acceso Directo a Memoria)
+
+Permite que **dispositivos de E/S** (discos, tarjetas de red) transfieran datos a/desde la memoria **sin intervención de la CPU en cada byte**. La CPU solo recibe una interrupción cuando la operación termina.
+
+> ⚠️ DMA **NO** es "procesos acceden a memoria sin traducción". DMA es sobre **dispositivos E/S**, no sobre procesos.
 
 ### FCFS vs HRRN vs SPN
 
@@ -305,7 +327,9 @@ Direccion  Memoria                Direccion  Memoria
 |---|---|---|
 | **FCFS** | No expropiativo | El que **llegó primero** se ejecuta primero |
 | **HRRN** | No expropiativo | El de **mayor ratio** (espera + ráfaga)/ráfaga |
-| **SPN** | Expropiativo* | El de **menor ráfaga** (*solo si llegan todos al inicio) |
+| **SPN** | Expropiativo* | El de **menor ráfaga** (*solo si llegan todos al inicio) — **minimiza waiting time promedio** |
+
+> ⚠️ **Round Robin** es justo en tiempo de respuesta (cada proceso recibe su turno), pero **NO minimiza waiting time**. Eso lo hace **SPN** (Shortest Process Next / Shortest Job First).
 
 ### Von Neumann — ¿Dónde está qué?
 
@@ -357,6 +381,30 @@ Direccion  Memoria                Direccion  Memoria
 | **MMU / Tabla de páginas** | **TRADUCIR**: convierte direcciones lógicas/virtuales en direcciones físicas. |
 
 > ⚠️ NO confundir: base/límite **protege el rango**, no traduce direcciones.
+
+### Punteros dobles — desreferenciación
+
+```c
+int x = 7;
+int *p = &x;    // p apunta a x
+int **pp = &p;  // pp apunta a p
+
+*pp   → p (la dirección de x)
+**pp  → *p → x → 7 (el valor de x)
+```
+
+> ⚠️ **`**pp`** desreferencia DOS veces. Primero obtiene el puntero intermedio, luego el valor final.
+
+### strcat — ACUMULA, no sobrescribe
+
+```c
+char result[20];
+strcpy(result, "Hello");   // result = "Hello"
+strcat(result, " ");       // result = "Hello "     (agrega, NO sobrescribe)
+strcat(result, "World");   // result = "Hello World" (acumula de nuevo)
+```
+
+> ⚠️ `strcat` **concatena** al final del string actual. Nunca sobrescribe lo anterior.
 
 ### Modificar un string literal (segfault)
 
@@ -430,6 +478,12 @@ t=12-21: P3 (le quedan 0) ✅ Cola: []
 10. **Arranque desde capacidad 0** → si `*capacidad*2`, el caso inicial `*capacidad==0` te deja en 0: usar ternario `(*capacidad==0)?1:*capacidad*2`
 11. **Base/límite vs MMU** → base/límite PROTEGE (rango legal), MMU TRADUCE (lógica→física)
 12. **Branch tomado** → se DESCARTA (flush) lo que ya entró detrás del branch
+13. **Endian decodificación** → Little: `b0+b1*256+b2*65536+b3*16777216`; Big: al revés
+14. **fork() no mata al padre** → AMBOS continúan; difieren en el valor de retorno
+15. **SPN vs Round Robin** → SPN minimiza waiting; RR es justo en respuesta, NO minimiza waiting
+16. **`**pp` desreferencia 2 veces** → primero obtiene el puntero, luego el valor final
+17. **strcat acumula** → nunca sobrescribe, concatena al final
+18. **DMA es de dispositivos E/S** → NO es sobre procesos/memoria virtual
 
 ---
 
@@ -439,4 +493,4 @@ t=12-21: P3 (le quedan 0) ✅ Cola: []
 
 ---
 
-*Basada en guia_examen.md + guia_tarea3.md + simulacro 2026-08-26 (53%) + simulacro 2026-08-28 (68.6%) + simulacro 2026-08-31 (73%). Examen: 4 de septiembre.*
+*Basada en guia_examen.md + guia_tarea3.md + simulacro 2026-08-26 (53%) + simulacro 2026-08-28 (68.6%) + simulacro 2026-08-31 (73%) + simulacro 2026-09-03 (82% MCQ). Examen: 4 de septiembre.*

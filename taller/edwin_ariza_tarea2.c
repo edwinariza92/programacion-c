@@ -61,8 +61,17 @@ int main(int argc, char *argv[])
         {
             fread(cursos, sizeof(Curso), course_count, fp);
         }
-        unsigned int suma_edades[50];
-        unsigned int contador[50];
+        unsigned int *suma_edades = malloc(course_count * sizeof(unsigned int));
+        unsigned int *contador = malloc(course_count * sizeof(unsigned int));
+        if (suma_edades == NULL || contador == NULL)
+        {
+            printf("Error de memoria\n");
+            free(estudiantes);
+            free(cursos);
+            fclose(fp);
+            return 1;
+        }
+
         for (unsigned int i = 0; i < course_count; i++)
         {
             suma_edades[i] = 0;
@@ -87,11 +96,16 @@ int main(int argc, char *argv[])
             float promedio = (float)suma_edades[i] / contador[i];
             printf("Curso: %s,Edad promedio: %.2f\n", cursos[i].name, promedio);
         }
+        free(suma_edades);
+        free(contador);
+        free(estudiantes);
+        free(cursos);
+        fclose(fp);
     }
     else
     {
         printf("no se pudo abrir");
+        return 1;
     }
-
     return 0;
 }

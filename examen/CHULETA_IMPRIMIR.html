@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>CHULETA DEFINITIVA — Examen Etapa 1</title>
+<style>
+  body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 8px; line-height: 1.25; color:#111; margin: 8mm; }
+  .pagebreak { page-break-before: always; }
+  .pagetitle { color:#1a3a6b; border-bottom:2px solid #1a3a6b; padding-bottom:2px; }
+  h1 { font-size:16px; color:#1a3a6b; margin:6px 0; }
+  h2 { font-size:11px; color:#1a3a6b; border-bottom:1px solid #ccc; padding-bottom:1px; margin:6px 0 3px; }
+  h3 { font-size:9.5px; color:#333; margin:5px 0 2px; }
+  h4 { font-size:8.5px; margin:4px 0 2px; }
+  table { border-collapse:collapse; width:100%; margin:3px 0; }
+  th, td { border:1px solid #999; padding:1px 3px; font-size:7.5px; vertical-align:top; }
+  th { background:#eef3fa; }
+  pre { background:#f4f4f4; border:1px solid #ddd; padding:3px; font-size:7.5px; line-height:1.2; overflow-wrap:break-word; white-space:pre-wrap; }
+  code { background:#f0f0f0; padding:0 1px; font-size:7.5px; }
+  blockquote { border-left:3px solid #1a3a6b; background:#eef3fa; margin:3px 0; padding:2px 6px; }
+  li { margin:0; }
+  hr { border:none; border-top:1px dashed #aaa; }
+  p { margin:2px 0; }
+</style>
+</head>
+<body>
+<h1>🎓 CHULETA DEFINITIVA — Examen Etapa 1</h1>
+<blockquote><b>Imprime esto.</b> Guía completa para el examen del 4 de septiembre.</blockquote>
+<blockquote>Incluye: Método de 5 pasos + Fórmulas + Errores comunes + Arq/SO + Planificación.</blockquote>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 1 — MÉTODO Y FÓRMULAS DE LISTAS</h1>
+<h2>🧭 MÉTODO DE 5 PASOS — SIEMPRE EN ORDEN</h2>
+<table>
+<tr><th>#</th><th>Paso</th><th>✔</th></tr>
+<tr><td>1</td><td><b>Leer el `main` completo</b>: ¿qué recibe cada función? ¿qué debe imprimirse?</td><td>☐</td></tr>
+<tr><td>2</td><td><b>Tabla de roles</b>: ¿quién es arreglo, contador, dato, índice?</td><td>☐</td></tr>
+<tr><td>3</td><td><b>Traza en papel</b>: dibuja la tabla de casillas y ejecuta cada vuelta</td><td>☐</td></tr>
+<tr><td>4</td><td><b>Traducir a código</b>: una línea de traza = una línea de código</td><td>☐</td></tr>
+<tr><td>5</td><td><b>Compilar, correr y COMPARAR</b> la salida línea por línea con lo esperado</td><td>☐</td></tr>
+</table>
+<hr>
+<h2>🔢 FÓRMULAS DE LISTAS (arreglos + punteros)</h2>
+<h3>Roles de parámetros</h3>
+<blockquote><i>"En el arreglo <b>\_\_\_</b>, en la casilla <b>\_\_\_</b>, guarda <b>\_\_\_</b>."</i></blockquote>
+<table>
+<tr><th>Parámetro</th><th>Significado</th><th>Ejemplo</th></tr>
+<tr><td>`listArray`</td><td>El arreglo</td><td>`Producto *inventario`</td></tr>
+<tr><td>`*listSize`</td><td>Contador (lleva `*`)</td><td>`int *cantidad`</td></tr>
+<tr><td>`data`</td><td>Dato nuevo</td><td>`int id, char nombre[]`</td></tr>
+<tr><td>`index` / `i`</td><td>Posición</td><td>`int index`</td></tr>
+</table>
+<h3>Los 4 patrones</h3>
+<table>
+<tr><th>Operación</th><th>Corre hacia</th><th>Bucle</th><th>Cuerpo</th><th>Dato va a</th><th>Contador</th></tr>
+<tr><td>Insertar al inicio</td><td>derecha</td><td>hacia atrás `i--`</td><td>`arr[i] = arr[i-1]`</td><td>`arr[0]`</td><td>`++`</td></tr>
+<tr><td>Insertar después de index</td><td>derecha</td><td>hacia atrás, para en `i > index`</td><td>`arr[i+1] = arr[i]`</td><td>`arr[index+1]`</td><td>`++`</td></tr>
+<tr><td>Eliminar en index</td><td>izquierda</td><td>hacia adelante desde `index+1`</td><td>`arr[i-1] = arr[i]`</td><td><i>(no hay dato)</i></td><td>`--`</td></tr>
+<tr><td>Insertar al final</td><td><i>(no corre)</i></td><td>no hay bucle</td><td>—</td><td>`arr[*listSize]`</td><td>`++`</td></tr>
+</table>
+<h3>3 reglas de oro</h3>
+<p>1. <b>El destino VIAJA con `i`</b> — si escribes siempre en la misma casilla, está mal.</p>
+<p>2. <b>Cero números mágicos</b> — cada número literal: <i>"¿de dónde sales?"</i> → usa el parámetro.</p>
+<p>3. <b>`index` decide DÓNDE empieza; la aritmética avanza de uno en uno.</b></p>
+<h3>Checklist anti-bug</h3>
+<li>☐ ¿El destino viaja con `i`?</li>
+<li>☐ ¿Las condiciones son comparaciones con parámetros? (nada de `i < 5`)</li>
+<li>☐ ¿El contador se actualiza? (+1 insertar, −1 borrar)</li>
+<li>☐ ¿Probé con un <b>SEGUNDO índice</b> distinto?</li>
+<li>☐ ¿Comparé salida LÍNEA POR LÍNEA?</li>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 2 — MÉTODO PARA PROBLEMAS NUEVOS (LÓGICA)</h1>
+<h2>🧠 CÓMO PENSAR CUANDO NO SABES QUÉ HACER</h2>
+<blockquote><b>Cuando el ejercicio NO es igual a los que ya resolviste</b>, sigue estos pasos:</blockquote>
+<h3>Paso 1: ENTENDER EL PROBLEMA (traducir enunciado)</h3>
+<p>Responde estas preguntas <b>en tu papel</b>:</p>
+<table>
+<tr><th>Pregunta</th><th>Respuesta</th></tr>
+<tr><td>¿Qué <b>recibe</b> mi función? (¿qué datos entran?)</td><td></td></tr>
+<tr><td>¿Qué <b>debe retornar</b> o <b>modificar</b>? (¿qué sale?)</td><td></td></tr>
+<tr><td>¿Qué <b>condiciones</b> hay? (¿qué caso especial existe?)</td><td></td></tr>
+<tr><td>¿Qué <b>debe imprimir</b> el `main`?</td><td></td></tr>
+</table>
+<p><b>Ejemplo `eliminarDuplicados`:</b></p>
+<li>Recibe: array de Producto, cantidad original, puntero a nuevaCantidad</li>
+<li>Retorna: nuevo array sin duplicados</li>
+<li>Condición: comparar por `id`</li>
+<li>Main imprime: array resultante y nuevaCantidad</li>
+<hr>
+<h3>Paso 2: PENSAR LA LÓGICA EN PSEUDOCÓDIGO (sin código)</h3>
+<p><b>NO escribas código aún.</b> Escribe pasos en español:</p>
+<pre>
+PARA CADA elemento del array original:
+    ¿Ya está en el resultado?
+        SI → no lo copio
+        NO → lo copio al resultado
+
+Guardar cuántos quedan
+</pre>
+<hr>
+<h3>Paso 3: TRADUCIR A CÓDIGO (paso a paso)</h3>
+<table>
+<tr><th>Pseudocódigo</th><th>Código C</th></tr>
+<tr><td>Para cada elemento</td><td>`for (int i = 0; i < cantidad; i++)`</td></tr>
+<tr><td>¿Ya está en resultado?</td><td>Bucle anidado `for (int j = 0; j < nuevaCantidad; j++)`</td></tr>
+<tr><td>Comparar campos</td><td>`if (productos[i].id == resultado[j].id)`</td></tr>
+<tr><td>Copiar si no está</td><td>`resultado[nuevaCantidad] = productos[i]; (*nuevaCantidad)++;`</td></tr>
+</table>
+<hr>
+<h2>🔧 PATRONES DE LÓGICA COMUNES</h2>
+<h3>Patrón 1: FILTRAR (quitar elementos)</h3>
+<p><b>Problema:</b> Eliminar duplicados, eliminar por condición, etc.</p>
+<pre>
+Lógica:
+1. Crear array NUEVO (vacío)
+2. Recorrer array original
+3. Para cada elemento: ¿cumple condición?
+   - SI → copiar al array nuevo, incrementar contador
+   - NO → saltar
+4. Retornar array nuevo
+</pre>
+<p><b>Template:</b></p>
+<pre>
+Tipo *filtrar(Tipo *original, int cantidad, int *nuevaCantidad) {
+    Tipo *resultado = malloc(cantidad * sizeof(Tipo));
+    *nuevaCantidad = 0;
+
+    for (int i = 0; i &lt; cantidad; i++) {
+        if (CONDICION(original[i])) {
+            resultado[*nuevaCantidad] = original[i];
+            (*nuevaCantidad)++;
+        }
+    }
+
+    // Redimensionar al tamaño exacto (opcional)
+    Tipo *temp = realloc(resultado, *nuevaCantidad * sizeof(Tipo));
+    if (temp != NULL) resultado = temp;
+
+    return resultado;
+}
+</pre>
+<p><b>Ejemplos de condiciones:</b></p>
+<li>Eliminar duplicados: `!existeEn(resultado, *nuevaCantidad, original[i])`</li>
+<li>Eliminar por ID: `original[i].id != idAEliminar`</li>
+<li>Filtrar pares: `original[i] % 2 == 0`</li>
+<hr>
+<h3>Patrón 2: FUSIONAR (combinar dos arrays)</h3>
+<p><b>Problema:</b> Unir dos listas, intercalar, mezclar ordenado, etc.</p>
+<pre>
+Lógica:
+1. Crear array del tamaño suma (cantidad1 + cantidad2)
+2. Copiar todos del primero
+3. Copiar todos del segundo
+4. (Opcional) Ordenar el resultado
+</pre>
+<p><b>Template:</b></p>
+<pre>
+Tipo *fusionar(Tipo *arr1, int cant1, Tipo *arr2, int cant2, int *total) {
+    *total = cant1 + cant2;
+    Tipo *resultado = malloc(*total * sizeof(Tipo));
+
+    // Copiar primero
+    for (int i = 0; i &lt; cant1; i++)
+        resultado[i] = arr1[i];
+
+    // Copiar segundo
+    for (int i = 0; i &lt; cant2; i++)
+        resultado[cant1 + i] = arr2[i];
+
+    return resultado;
+}
+</pre>
+<hr>
+<h3>Patrón 3: BUSCAR Y MODIFICAR</h3>
+<p><b>Problema:</b> Actualizar un elemento, cambiar cantidad, marcar como eliminado, etc.</p>
+<pre>
+Lógica:
+1. Recorrer buscando por condición (ej: ID)
+2. Si lo encuentro → modificar
+3. Si no lo encuentro → mensaje de error o retornar -1
+</pre>
+<p><b>Template:</b></p>
+<pre>
+int buscarYModificar(Tipo *arr, int cantidad, int idBuscado, ...) {
+    for (int i = 0; i &lt; cantidad; i++) {
+        if (arr[i].id == idBuscado) {
+            // Modificar
+            arr[i].campo = nuevoValor;
+            return i;  // éxito
+        }
+    }
+    return -1;  // no encontrado
+}
+</pre>
+<hr>
+<h3>Patrón 4: CONTAR/ACUMULAR</h3>
+<p><b>Problema:</b> Contar elementos que cumplen, sumar campos, calcular promedio.</p>
+<pre>
+Lógica:
+1. Inicializar contador/acumulador en 0
+2. Recorrer array
+3. Si cumple condición → incrementar/sumar
+4. Retornar resultado
+</pre>
+<p><b>Template:</b></p>
+<pre>
+int contar(Tipo *arr, int cantidad) {
+    int contador = 0;
+    for (int i = 0; i &lt; cantidad; i++) {
+        if (CONDICION(arr[i]))
+            contador++;
+    }
+    return contador;
+}
+</pre>
+<hr>
+<h2>🎯 EJEMPLO APLICADO: eliminarDuplicados</h2>
+<p><b>Paso 1 — Entender:</b></p>
+<li>Recibe: `Producto *productos`, `int cantidad`, `int *nuevaCantidad`, `int *capacidad`</li>
+<li>Retorna: `Producto *` (nuevo array)</li>
+<li>Lógica: solo quedan productos con IDs únicos</li>
+<p><b>Paso 2 — Pseudocódigo:</b></p>
+<pre>
+Crear resultado vacío
+PARA CADA producto en original:
+    ¿Ya existe uno con mismo id en resultado?
+        SI → no copio
+        NO → copio, incremento nuevaCantidad
+Retornar resultado
+</pre>
+<p><b>Paso 3 — Código:</b></p>
+<pre>
+Producto *eliminarDuplicados(Producto *productos, int cantidad, int *nuevaCantidad, int *capacidad) {
+    Producto *resultado = malloc(cantidad * sizeof(Producto));
+    *nuevaCantidad = 0;
+
+    for (int i = 0; i &lt; cantidad; i++) {
+        // ¿Ya existe?
+        int duplicado = 0;
+        for (int j = 0; j &lt; *nuevaCantidad; j++) {
+            if (productos[i].id == resultado[j].id) {
+                duplicado = 1;
+                break;
+            }
+        }
+
+        // Si no es duplicado, copiar
+        if (!duplicado) {
+            resultado[*nuevaCantidad] = productos[i];
+            (*nuevaCantidad)++;
+        }
+    }
+
+    return resultado;
+}
+</pre>
+<hr>
+<h2>⚠️ ERRORES LÓGICOS COMUNES</h2>
+<table>
+<tr><th>Error</th><th>Ejemplo</th><th>Solución</th></tr>
+<tr><td><b>Olvidar inicializar contador</b></td><td>`int nuevaCantidad;` (basura)</td><td>`int nuevaCantidad = 0;`</td></tr>
+<tr><td><b>Comparar arrays completos en vez de campos</b></td><td>`if (productos[i] == resultado[j])`</td><td>`if (productos[i].id == resultado[j].id)`</td></tr>
+<tr><td><b>No incrementar contador después de copiar</b></td><td>Falta `(*nuevaCantidad)++`</td><td>Siempre después de asignar</td></tr>
+<tr><td><b>Copiar al array original en vez de nuevo</b></td><td>`productos[i] = resultado[...]`</td><td>Usar el array NUEVO para guardar</td></tr>
+<tr><td><b>No retornar el array nuevo</b></td><td>Falta `return resultado;`</td><td>Siempre retornar</td></tr>
+</table>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 3 — ERRORES COMUNES EN C</h1>
+<h2>🐛 ERRORES QUE APRENDÍ EN SIMULACROS (ERRORES DE SINTAXIS)</h2>
+<h3>1. `=` vs `==`</h3>
+<pre>
+if (x = 10)    // ASIGNACIÓN → x vale 10, siempre true
+if (x == 10)   // COMPARACIÓN → solo true si x ya era 10
+</pre>
+<h3>2. División entera</h3>
+<pre>
+int a = 10, b = 3;
+a / b           // → 3 (NO 3.33) — int / int = int
+(float)a / b   // → 3.33 — castear ANTES
+</pre>
+<h3>3. Paso por valor (no cambia la variable original)</h3>
+<pre>
+void duplicar(int n) { n = n * 2; }
+int a = 5;
+duplicar(a);    // a sigue siendo 5 — se copió el valor
+</pre>
+<h3>4. `%s` NO necesita `&`</h3>
+<pre>
+char nombre[] = "Hola";
+printf("%s", nombre);    // ✅ correcto
+printf("%s", &amp;nombre);   // ❌ incorrecto
+</pre>
+<h3>5. Acceso fuera de rango</h3>
+<pre>
+int nums[] = {10, 20, 30};  // índices válidos: 0, 1, 2
+nums[3]  // ❌ fuera de rango
+</pre>
+<h3>6. `scanf` necesita `&` (excepto `%s`)</h3>
+<pre>
+int x;
+scanf("%d", &amp;x);    // ✅ necesita &amp;
+char s[50];
+scanf("%s", s);     // ✅ %s NO necesita &amp;
+</pre>
+<h3>7. Aritmética de punteros</h3>
+<pre>
+int arr[] = {10, 20, 30};
+int *ptr = arr;      // ptr apunta a arr[0]
+
+*(ptr + 0)  // → 10 (arr[0])
+*(ptr + 1)  // → 20 (arr[1])  ← ¡NO es dirección!
+*(ptr + 2)  // → 30 (arr[2])
+</pre>
+<h3>8. Confundir parámetros similares</h3>
+<pre>
+void agregar(Producto **inv, int *cantidad, int id, int cant, ...) {
+    (*inv)[i].cantidad = *cantidad;  // ❌ ERROR: *cantidad es el CONTADOR
+    (*inv)[i].cantidad = cant;       // ✅ CORRECTO: cant es la cantidad del PRODUCTO
+}
+</pre>
+<h3>9. Modificar string literal (segfault)</h3>
+<pre>
+char *str = "Hola";
+str[0] = 'J';   // ❌ segfault — literal en memoria de SOLO LECTURA
+
+char str[] = "Hola";  // ✅ array mutable, funciona
+str[0] = 'J';
+</pre>
+<h3>10. strcat ACUMULA, no sobrescribe</h3>
+<pre>
+char result[20];
+strcpy(result, "Hello");   // result = "Hello"
+strcat(result, " ");       // result = "Hello "
+strcat(result, "World");   // result = "Hello World"
+</pre>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 4 — STRUCTS + MEMORIA DINÁMICA</h1>
+<h2>📦 TEMPLATES PARA EXAMEN</h2>
+<h3>Struct básico</h3>
+<pre>
+typedef struct {
+    int id;
+    char nombre[50];
+    int cantidad;
+    float precio;
+} Producto;
+</pre>
+<h3>malloc — Reservar memoria</h3>
+<pre>
+Producto *inventario = malloc(3 * sizeof(Producto));
+if (inventario == NULL) { printf("Error\n"); exit(1); }
+
+inventario[0].id = 1;
+strcpy(inventario[0].nombre, "Teclado");
+inventario[0].cantidad = 10;
+</pre>
+<h3>realloc — Redimensionar (SIEMPRE con puntero temporal)</h3>
+<pre>
+int nuevaCapacidad = (*capacidad == 0) ? 1 : *capacidad * 2;
+Producto *temp = realloc(*inventario, nuevaCapacidad * sizeof(Producto));
+if (temp == NULL) { printf("Error\n"); exit(1); }
+*inventario = temp;
+*capacidad = nuevaCapacidad;
+</pre>
+<blockquote>⚠️ <b>BUG DEL ARRANQUE:</b> Si `*capacidad == 0`, entonces `0*2 = 0` → nunca crece. Usar ternario.</blockquote>
+<h3>free — Liberar memoria</h3>
+<pre>
+free(inventario);
+inventario = NULL;  // evitar puntero colgante
+*capacidad = 0;
+</pre>
+<h3>Punteros dobles — cuándo usar</h3>
+<table>
+<tr><th>Parámetro</th><th>Necesito...</th><th>Ejemplo</th></tr>
+<tr><td>`Producto **inventario`</td><td>Modificar el <b>puntero</b> (asignar malloc)</td><td>`*inventario = malloc(...)`</td></tr>
+<tr><td>`int *cantidad`</td><td>Modificar el <b>valor</b> (incrementar)</td><td>`(*cantidad)++`</td></tr>
+<tr><td>`int id`</td><td>Solo <b>leer</b> el valor</td><td>`id` directamente</td></tr>
+</table>
+<h3>Checklist anti-bug structs</h3>
+<li>☐ ¿Verifiqué `NULL` después de `malloc`/`realloc`?</li>
+<li>☐ ¿Usé `strcpy` para strings (nunca `=`)?</li>
+<li>☐ ¿El contador lleva `(*var)++` con paréntesis?</li>
+<li>☐ ¿`realloc` usa puntero temporal?</li>
+<li>☐ ¿Confundo `*cantidad` (contador) con `cant` (dato)?</li>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 5 — CORREGIR CÓDIGO "DESORDENADO" (funciona pero imprime mal)</h1>
+<blockquote>Usalo cuando te den un código que YA compila y corre, pero la salida no está en orden.</blockquote>
+<blockquote>Tu tarea: encontrar el/los error(es) de lógica.</blockquote>
+<h2>🕵️ MÉTODO PARA ENCONTRAR EL ERROR — hazlo EN ORDEN</h2>
+<h3>Paso 1: ¿QUÉ debería imprimir y QUÉ imprime?</h3>
+<p>Anota en el papel:</p>
+<li>Salida <b>esperada</b> (según el enunciado): `[1,2,3,4,5]`</li>
+<li>Salida <b>actual</b> (como funciona mal): `[3,1,4,2,5]`</li>
+<p>¿En qué se diferencian? Ese es tu pista inicial.</p>
+<hr>
+<h3>Paso 2: ESCANEA LAS 5 CAJAS DE BUGS (revisar cada una)</h3>
+<p>Es casi siempre UNO de estos. Márcalo cuando lo encuentres:</p>
+<table>
+<tr><th>#</th><th>Caja</th><th>Qué revisar</th><th>Señal de error</th></tr>
+<tr><td>1</td><td><b>Condición de bucle</b></td><td>`for (i=0; i<n; i++)` vs `<=n`</td><td>Acceso fuera de rango / falta un elemento</td></tr>
+<tr><td>2</td><td><b>Límite / número fijo</b></td><td>`i < 5` en vez de `i < n`</td><td>Falla si cambia el tamaño</td></tr>
+<tr><td>3</td><td><b>Índice inicial</b></td><td>¿empieza en 0 o en 1? ¿termina en n-1 o n?</td><td>Falta el primero o el último elemento</td></tr>
+<tr><td>4</td><td><b>Dirección del `for`</b></td><td>¿`i++` debería ser `i--`? ¿recorre al revés?</td><td>Elementos invertidos</td></tr>
+<tr><td>5</td><td><b>Comparación invertida</b></td><td>`>` cuando debe ser `<` (o al revés)</td><td>Orden descendente en vez de ascendente</td></tr>
+</table>
+<hr>
+<h3>Paso 3: TRAZA UNA SOLA VUELTA EN PAPEL</h3>
+<p>Toma la impresión esperada `[1,2,3,4,5]` y el código. Ejecuta <b>1 o 2 iteraciones</b> del bucle con números reales. Pregúntate:</p>
+<blockquote><i>"¿Esta vuelta me acerca a lo esperado o me aleja?"</i></blockquote>
+<p>Si la primera vuelta ya produce algo raro, el error está <b>dentro del bucle</b> (swap, comparación, asignación).</p>
+<hr>
+<h3>Paso 4: REVISA EL SWAP (cajón común)</h3>
+<p>El intercambio tiene <b>3 líneas</b> y usa una <b>variable temporal</b>:</p>
+<pre>
+// ✅ CORRECTO
+int temp = a;    // 1. guardar original de a
+a = b;           // 2. a recibe b
+b = temp;        // 3. b recibe lo que era a
+
+// ❌ ERRORES FRECUENTES QUE DEJAN TODO REPETIDO O PERDIDO:
+a = b;           // ❌ pierde el valor original de a
+b = a;           // ❌ ahora a y b tienen lo mismo (temporal mal hecho)
+</pre>
+<blockquote>💡 Si ves `int temp = a;` pero luego `a = b; b = a;` (sin usar `temp` en el paso 3), <b>ahí está el bug</b>: algo se pierde.</blockquote>
+<hr>
+<h2>🎯 LOS 3 DESORDENES MÁS COMUNES Y SU CURA</h2>
+<h3>Tipo A: Los elementos salen al REVÉS (invertidos)</h3>
+<p><b>Síntoma:</b> `[5,4,3,2,1]` en vez de `[1,2,3,4,5]`</p>
+<p><b>Causa probable:</b> el `for` recorre al revés, o la comparación está invertida (`>` en vez de `<`).</p>
+<pre>
+// Cura: bucle hacia adelante + comparación menor
+for (int i = 0; i &lt; n; i++)
+    for (int j = i+1; j &lt; n; j++)
+        if (arr[j] &lt; arr[i]) { int t = arr[i]; arr[i] = arr[j]; arr[j] = t; }
+</pre>
+<hr>
+<h3>Tipo B: Falta el PRIMER o el ÚLTIMO elemento</h3>
+<p><b>Síntoma:</b> `[2,3,4,5]` (falta el 1) o `[1,2,3,4]` (falta el 5)</p>
+<p><b>Causa probable:</b> el índice comienza mal (`i=1` en vez de `i=0`) o termina mal (`i < n` en vez de `i <= n`, o un `-1` de más).</p>
+<pre>
+// Los índices EMPIEZAN en 0 y van hasta n-1
+for (int i = 0; i &lt; n; i++)   // ✅
+</pre>
+<hr>
+<h3>Tipo C: Elementos REORDENADOS pero con % (módulo) mal usado</h3>
+<p><b>Síntoma:</b> reagrupa/rota de forma extraña</p>
+<p><b>Causa probable:</b> el índice con `%` o el corrimiento están mal.</p>
+<pre>
+// Rotación a la izquierda
+int temp = arr[0];
+for (int i = 0; i &lt; n-1; i++)
+    arr[i] = arr[i+1];
+arr[n-1] = temp;
+
+// ❌ Error típico: arr[i] = arr[i-1]  (recorre mal la dirección)
+</pre>
+<hr>
+<h2>⚠️ CHECKLIST FINAL ANTES DE ENTREGAR (corrección manual)</h2>
+<li>☐ ¿Los índices van de 0 a `n-1`?</li>
+<li>☐ ¿Ningún número fijo (`i < 5`) donde va un parámetro (`i < n`)?</li>
+<li>☐ ¿El swap usa `temp` y en 3 pasos no pierde nada?</li>
+<li>☐ ¿La comparación coincide con el orden pedido (ascendente = `<`)?</li>
+<li>☐ ¿El bucle recorre hacia adelante cuando debe ir adelante?</li>
+<li>☐ ¿Tracé mentalmente la PRIMERA vuelta y es correcta?</li>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 6 — ARQUITECTURA Y SO</h1>
+<h2>🖥️ DIFERENCIAS QUE CONFUNDO</h2>
+<h3>Data Hazard vs Resource Hazard</h3>
+<table>
+<tr><th>Tipo</th><th>Qué pasa</th><th>Ejemplo</th></tr>
+<tr><td><b>Data hazard</b></td><td>Instrucción necesita <b>resultado de otra</b> que aún no está listo</td><td>`R1 = R2 + R3` antes de que `R2` se escriba</td></tr>
+<tr><td><b>Resource hazard</b></td><td>Dos instrucciones necesitan la <b>misma etapa</b> al mismo tiempo</td><td>Dos `IF` en el mismo ciclo</td></tr>
+</table>
+<h3>Big Endian vs Little Endian</h3>
+<table>
+<tr><th>Endian</th><th>Dirección baja</th><th>Regla</th></tr>
+<tr><td><b>Big Endian</b></td><td>Byte <b>más significativo</b> primero (como se lee)</td><td>Motorola, red</td></tr>
+<tr><td><b>Little Endian</b></td><td>Byte <b>menos significativo</b> primero (al revés)</td><td>Intel/AMD, x86</td></tr>
+</table>
+<p><b>Fórmula Little Endian:</b> `Valor = b[0] + b[1]*256 + b[2]*65536 + b[3]*16777216`</p>
+<h3>Throughput vs Latencia</h3>
+<table>
+<tr><th>Concepto</th><th>Significado</th></tr>
+<tr><td><b>Throughput</b></td><td>Instrucciones completadas <b>por unidad de tiempo</b></td></tr>
+<tr><td><b>Latencia</b></td><td>Tiempo que tarda <b>una sola instrucción</b></td></tr>
+</table>
+<h3>Fork vs System Calls</h3>
+<table>
+<tr><th>Mecanismo</th><th>Para qué sirve</th></tr>
+<tr><td><b>`fork()`</b></td><td>Crear <b>nuevo proceso</b>. <b>AMBOS continúan</b>. Al padre le retorna PID (>0), al hijo le retorna 0.</td></tr>
+<tr><td><b>System calls</b></td><td>Mecanismo para que un proceso <b>solicite servicios del kernel</b></td></tr>
+</table>
+<h3>DMA (Acceso Directo a Memoria)</h3>
+<p>Permite que <b>dispositivos de E/S</b> transfieran datos a/desde memoria <b>sin intervención de la CPU en cada byte</b>.</p>
+<blockquote>⚠️ DMA <b>NO</b> es sobre procesos/memoria virtual. Es sobre <b>dispositivos E/S</b>.</blockquote>
+<h3>FCFS vs HRRN vs SPN</h3>
+<table>
+<tr><th>Algoritmo</th><th>Tipo</th><th>Criterio</th></tr>
+<tr><td><b>FCFS</b></td><td>No expropiativo</td><td>El que <b>llegó primero</b> se ejecuta primero</td></tr>
+<tr><td><b>HRRN</b></td><td>No expropiativo</td><td>El de <b>mayor ratio</b> (espera + ráfaga)/ráfaga</td></tr>
+<tr><td><b>SPN</b></td><td>Expropiativo*</td><td>El de <b>menor ráfaga</b> — <b>minimiza waiting time</b></td></tr>
+</table>
+<blockquote>⚠️ <b>Round Robin</b> es justo en tiempo de respuesta, pero <b>NO minimiza waiting time</b>. Eso lo hace <b>SPN</b>.</blockquote>
+<h3>Von Neumann — ¿Dónde está qué?</h3>
+<table>
+<tr><th>Componente</th><th>Almacena</th></tr>
+<tr><td><b>CPU/Registros</b></td><td>Datos en proceso de uso inmediato</td></tr>
+<tr><td><b>Memoria principal (RAM)</b></td><td>Tanto <b>datos como instrucciones</b></td></tr>
+<tr><td><b>Disco</b></td><td>Programas y datos a largo plazo</td></tr>
+</table>
+<blockquote>⚠️ En Von Neumann, <b>datos E instrucciones están en la misma memoria</b>.</blockquote>
+<h3>Page Fault</h3>
+<table>
+<tr><th>Situación</th><th>¿Qué es?</th></tr>
+<tr><td><b>Page fault</b></td><td>Página no está en RAM (está en disco/swap) — el SO la carga</td></tr>
+<tr><td><b>Segmentation fault</b></td><td>Acceso a dirección inválida (bug del programa)</td></tr>
+</table>
+<h3>Control Hazard / Branch</h3>
+<p>¿Qué pasa cuando un <b>branch es TOMADO</b>?</p>
+<blockquote>El pipeline debe <b>descartar (flush)</b> las instrucciones que ya entraron detrás del branch.</blockquote>
+<h3>Registro Base + Límite vs MMU</h3>
+<table>
+<tr><th>Mecanismo</th><th>Función</th></tr>
+<tr><td><b>Registro base + límite</b></td><td><b>PROTEGER</b>: define rango legal de direcciones</td></tr>
+<tr><td><b>MMU / Tabla de páginas</b></td><td><b>TRADUCIR</b>: convierte direcciones lógicas en físicas</td></tr>
+</table>
+<h3>Proceso vs Hilo</h3>
+<table>
+<tr><th>Característica</th><th>Proceso</th><th>Hilo</th></tr>
+<tr><td>Espacio de memoria</td><td><b>Propio</b></td><td><b>Compartido</b></td></tr>
+<tr><td>Stack</td><td>Propio</td><td>Propio</td></tr>
+<tr><td>Creación</td><td>`fork()`</td><td>`pthread_create()`</td></tr>
+</table>
+<hr>
+<h1 class="pagetitle">📄 PÁGINA 7 — PLANIFICACIÓN DE CPU + NOTAS</h1>
+<h2>📊 PLANIFICACIÓN — SIEMPRE CON GANTT</h2>
+<h3>Regla de oro</h3>
+<blockquote><b>NUNCA calcules waiting/turnaround sin dibujar la línea de tiempo primero.</b></blockquote>
+<h3>Fórmulas</h3>
+<pre>
+Turnaround Time  = Salida - Llegada
+Waiting Time     = Turnaround - Ráfaga
+Promedio         = Suma / Número de procesos
+</pre>
+<h3>Round Robin — paso a paso</h3>
+<p>1. Escribe la <b>cola</b> al inicio: solo los procesos que ya llegaron.</p>
+<p>2. Saca el primero, ejecuta `min(quantum, ráfaga)`.</p>
+<p>3. Si le quedan unidades → <b>va al fondo de la cola</b>.</p>
+<p>4. Si mientras ejecuta <b>llega un proceso nuevo</b> → se agrega <b>después</b> de los que ya estaban.</p>
+<p>5. Repite hasta que no queden procesos.</p>
+<h3>Ejemplo rápido (quantum=4)</h3>
+<pre>
+P1(0,8)  P2(1,4)  P3(2,9)
+
+t=0-4:  P1 (le quedan 4)     Cola: [P2]
+t=4-8:  P2 (le quedan 0) ✅  Cola: [P1, P3]
+t=8-12: P1 (le quedan 0) ✅  Cola: [P3]
+t=12-21: P3 (le quedan 0) ✅ Cola: []
+</pre>
+<hr>
+<h2>⚠️ MIS DEBILIDADES (leer ANTES del examen)</h2>
+<p>1. <b>Números fijos donde va parámetro</b> → cada número literal: <i>"¿de dónde sales?"</i></p>
+<p>2. <b>Destino fijo en corrimientos</b> → en cada vuelta: <i>"¿esta casilla cambió?"</i></p>
+<p>3. <b>Confiarme con un solo test</b> → mínimo 2 llamadas distintas.</p>
+<p>4. <b>`=` vs `==`</b> → revisar siempre las condiciones.</p>
+<p>5. <b>División entre `int`</b> → si necesito decimal, castear ANTES con `(float)`.</p>
+<p>6. <b>Cálculo sin Gantt</b> → SIEMPRE dibujar la línea de tiempo antes de fórmulas.</p>
+<p>7. <b>Conceptos similares</b> → al responder MCQ, preguntar: <i>"¿qué lo diferencia exactamente del otro?"</i></p>
+<p>8. <b>Parámetros con nombres similares</b> → `cant` vs `cantidad`: <i>"¿cuál tiene el dato que necesito?"</i></p>
+<p>9. <b>Aritmética de punteros</b> → `*(ptr + n)` accede al elemento en posición `n`</p>
+<p>10. <b>Arranque desde capacidad 0</b> → usar ternario `(*capacidad==0)?1:*capacidad*2`</p>
+<p>11. <b>Base/límite vs MMU</b> → base/límite PROTEGE, MMU TRADUCE</p>
+<p>12. <b>Branch tomado</b> → se DESCARTA (flush) lo que ya entró</p>
+<p>13. <b>Endian decodificación</b> → Little: `b0+b1*256+b2*65536+b3*16777216`; Big: al revés</p>
+<p>14. <b>fork() no mata al padre</b> → AMBOS continúan</p>
+<p>15. <b>SPN vs Round Robin</b> → SPN minimiza waiting; RR es justo en respuesta</p>
+<p>16. <b>`**pp` desreferencia 2 veces</b> → primero el puntero, luego el valor</p>
+<p>17. <b>strcat acumula</b> → nunca sobrescribe</p>
+<p>18. <b>DMA es de dispositivos E/S</b> → NO es sobre procesos</p>
+<hr>
+<h2>📝 NOTAS LIBRES (para el día del examen)</h2>
+<p><br><br><br><br><br></p>
+<hr>
+<p><i>Chuleta consolidada — 4 septiembre 2026</i></p>
+</body>
+</html>
