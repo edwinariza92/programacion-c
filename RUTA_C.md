@@ -841,6 +841,7 @@ Podemos estudiar superficialmente temas de fases futuras si aparecen durante una
 
 Registrar aquí conceptos que necesiten reforzarse.
 
+- [ ] Índice vs cantidad en strings: el último índice de un string de largo `L` es `L - 1` (apareció en FirstReverse, Sesión 25)
 - [ ] Desplazamiento de arreglos hacia la derecha (bucle hacia atrás)
 - [ ] Roles de parámetros en funciones con punteros (arreglo / contador / dato / índice)
 - [ ] Método de 5 pasos para resolver ejercicios sin ayuda (examen: 4 de septiembre)
@@ -1630,6 +1631,22 @@ Estado: ✅ Taller de archivos binarios completado (tareas 1-3 ✅). Adelanto a 
 - Llevar **solo la chuleta** (tiene templates + método), NO los programas viejos. Más papel para trazar.
 
 Estado: 🟢 Preparación examen final en curso (ejercicio 1 del Simulacro 4 ✅). Examen: 4 de septiembre.
+
+## Sesión 25 — Repaso pre-examen: strings + patrones de listas (2026-09-03)
+
+- Examen final mañana (4 de septiembre). Sesión tranquila de cierre y repaso, sin marcar módulos nuevos.
+- **FirstReverse** en Coderbyte completado (`coderbyte/ejercicios_coderbyte/primera_reversa.c`):
+  - Recorrer string con `for` invertido: `for(int i = strlen(str)-1; i >= 0; i--)` + `printf("%c", str[i])`.
+  - Error trabajado: **índice vs cantidad** — el último índice de un string de largo `L` es `L - 1`, no `L`.
+- **Retos cortos** en `ultimoreto.c` sobre structs + memoria dinámica:
+  - `contarPorId` — Patrón 4 (contar/acumular): contador + recorrido + condición.
+  - `obtenerPorId` — Patrón 1 (filtrar): `malloc(cantidad)` del tamaño máximo + copiar los que cumplen + `(*nuevaCantidad)++`.
+  - **Razón clave dominada:** en filtrar **no hace falta `realloc`** porque el resultado **nunca crece** (solo se reduce respecto al original).
+  - Compilado con `gcc -Wall` sin warnings: salida esperada (`2`, y `Teclado`/`Monitor`).
+- **Papel extra definido para el examen:** funciones de `<string.h>` (`strlen`, `strcpy`, `strcat`, `strcmp`) + `atoi` (`<stdlib.h>`) + `isalnum`/`isdigit`/`isalpha` (`<ctype.h>`). Recordatorio: `strcmp` devuelve `0` si son iguales.
+- Sin cambios de checkboxes de módulos (fue repaso + ejercicio suelto pre-examen).
+
+Estado: 🟢 Repaso pre-examen final (mañana). Última sesión antes del examen del 4 de septiembre.
 
 # 🎯 REGLAS DEL CURSO
 
